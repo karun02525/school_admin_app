@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.dps.admin">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.DPSAdminApp.NoActionBar"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.create.AssignClassTeacherActivity"
+            android:exported="true" />
+        <activity android:name=".ui.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.create.CreateClassActivity"
+            android:label="Create Class" />
+        <activity
+            android:name=".ui.create.AssignTeacherActivity"
+            android:label="Assign Teacher" />
+        <activity android:name=".ui.create.AssignRollNoActivity" />
+        <activity android:name=".ui.create.CreateParentActivity" />
+        <activity
+            android:name=".ui.create.CreateStudentActivity"
+            android:label="Create Student" />
+        <activity
+            android:name=".ui.create.CreateTeacherActivity"
+            android:label="Create Teacher" />
+        <activity android:name=".ui.create.ShowStudentActivity" />
+        <activity android:name=".ui.create.ShowTeacherActivity" />
+    </application>
+
+</manifest>

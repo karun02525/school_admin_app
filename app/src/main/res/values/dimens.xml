@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_size">14sp</dimen>
+    <dimen name="image_view_padding">10dp</dimen>
+    <dimen name="margin_start_left">56dp</dimen>
+    <dimen name="margin_root_start_left">24dp</dimen>
+    <dimen name="margin_top_root">16dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+</resources>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="22dp"
+    android:height="21dp"
+    android:viewportWidth="22"
+    android:viewportHeight="21">
+
+    <group
+        android:translateX="-33.000000"
+        android:translateY="-154.000000">
+        <group
+            android:translateX="34.000000"
+            android:translateY="155.000000">
+            <path
+                android:fillType="evenOdd"
+                android:strokeColor="#2A69A3"
+                android:strokeWidth="1.5"
+                android:pathData="M6,0 L14,0 C14.5522847,-1.01453063e-16 15,0.44771525 15,1 L15,19 L15,19 L5,19 L5,1 C5,0.44771525 5.44771525,1.01453063e-16 6,0 Z" />
+            <path
+                android:fillType="evenOdd"
+                android:strokeColor="#2A69A3"
+                android:strokeWidth="1.5"
+                android:pathData="M15,8 L19,8 C19.5522847,8 20,8.44771525 20,9 L20,18 C20,18.5522847 19.5522847,19 19,19 L15,19 L15,19 L15,8 Z" />
+            <path
+                android:fillType="evenOdd"
+                android:strokeColor="#2A69A3"
+                android:strokeWidth="1.5"
+                android:pathData="M1,6 L5,6 L5,6 L5,19 L1,19 C0.44771525,19 6.76353751e-17,18.5522847 0,18 L0,7 C-6.76353751e-17,6.44771525 0.44771525,6 1,6 Z" />
+            <path
+                android:fillColor="#2A69A3"
+                android:fillType="evenOdd"
+                android:strokeWidth="1"
+                android:pathData="M 8.25 3 L 11.75 3 Q 12.5 3 12.5 3.75 L 12.5 3.75 Q 12.5 4.5 11.75 4.5 L 8.25 4.5 Q 7.5 4.5 7.5 3.75 L 7.5 3.75 Q 7.5 3 8.25 3 Z" />
+            <path
+                android:fillColor="#2A69A3"
+                android:fillType="evenOdd"
+                android:strokeWidth="1"
+                android:pathData="M 8.25 7 L 11.75 7 Q 12.5 7 12.5 7.75 L 12.5 7.75 Q 12.5 8.5 11.75 8.5 L 8.25 8.5 Q 7.5 8.5 7.5 7.75 L 7.5 7.75 Q 7.5 7 8.25 7 Z" />
+            <path
+                android:fillColor="#2A69A3"
+                android:fillType="evenOdd"
+                android:strokeWidth="1"
+                android:pathData="M 8.25 11 L 11.75 11 Q 12.5 11 12.5 11.75 L 12.5 11.75 Q 12.5 12.5 11.75 12.5 L 8.25 12.5 Q 7.5 12.5 7.5 11.75 L 7.5 11.75 Q 7.5 11 8.25 11 Z" />
+            <path
+                android:fillColor="#2A69A3"
+                android:fillType="evenOdd"
+                android:strokeWidth="1"
+                android:pathData="M 8.25 15 L 11.75 15 Q 12.5 15 12.5 15.75 L 12.5 15.75 Q 12.5 16.5 11.75 16.5 L 8.25 16.5 Q 7.5 16.5 7.5 15.75 L 7.5 15.75 Q 7.5 15 8.25 15 Z" />
+        </group>
+    </group>
+</vector>

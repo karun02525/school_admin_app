@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/create_class"
+            android:icon="@drawable/ic_application"
+            android:title="Create Class" />
+      
+        <item
+            android:id="@+id/create_parent"
+            android:icon="@drawable/ic_subject"
+            android:title="Create Parent" />
+
+        <item
+            android:id="@+id/create_student"
+            android:icon="@drawable/ic_subject"
+            android:title="Create Student" />
+        
+        <item
+            android:id="@+id/create_teacher"
+            android:icon="@drawable/ic_notices"
+            android:title="Create Teacher" />
+
+
+        <item
+            android:id="@+id/nav_fee"
+            android:icon="@drawable/ic_fee"
+            android:title="Fee" />
+
+
+        <item
+            android:id="@+id/nav_result"
+            android:icon="@drawable/ic_result"
+            android:title="Result" />
+
+
+        <item
+            android:id="@+id/nav_support"
+            android:icon="@drawable/ic_support"
+            android:title="Support" />
+
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/ic_help"
+            android:title="Help" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_logout"
+            android:title="Log out" />
+    </group>
+</menu>
