@@ -49,21 +49,6 @@ class ClassViewModel(private val restClient: RestClient) : ViewModel() {
     }
 
 
-     fun getParents() {
-        GlobalScope.launch(Dispatchers.Main) {
-            try {
-                restClient.webServices().getParentAsync().await().let {
-                    if (it.isSuccessful)
-                        parentsData.value=it.body()!!.data!!
-                    else
-                        msg.value = ApiStatus.isCheckAPIStatus(it.code(), it.errorBody())
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                msg.value = App.appContext?.getString(R.string.no_internet_available)
-            }
-        }
-    }
 
     private fun getTeacher() {
         GlobalScope.launch(Dispatchers.Main) {

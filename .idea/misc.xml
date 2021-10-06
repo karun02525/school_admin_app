@@ -12,8 +12,10 @@
         <entry key="app/src/main/res/layout/activity_create_parent.xml" value="0.4244791666666667" />
         <entry key="app/src/main/res/layout/activity_create_student.xml" value="0.4244791666666667" />
         <entry key="app/src/main/res/layout/activity_create_teacher.xml" value="0.40989583333333335" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.40989583333333335" />
         <entry key="app/src/main/res/layout/activity_search_suggestion.xml" value="0.40989583333333335" />
         <entry key="app/src/main/res/layout/activity_show_student.xml" value="0.40989583333333335" />
+        <entry key="app/src/main/res/layout/activity_testing_dashboard.xml" value="0.40989583333333335" />
         <entry key="app/src/main/res/layout/activity_upload_documents.xml" value="0.40989583333333335" />
         <entry key="app/src/main/res/layout/adapter_class_teacher.xml" value="0.4244791666666667" />
         <entry key="app/src/main/res/layout/adapter_show_students.xml" value="0.40989583333333335" />

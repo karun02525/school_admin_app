@@ -188,11 +188,67 @@ class AssignClassTeacherViewModel(private val restClient: RestClient) : ViewMode
         }
     }
 
+
+
+    //Get Student by id
+    val singleStudentData = MutableLiveData<SingleStudentModelData>()
+    fun getStudentById(id:String) {
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                restClient.webServices().getStudentByIdAsync(id).await().let {
+                    if (it.isSuccessful)
+                        singleStudentData.value=it.body()!!.data
+                    else
+                        msg.value = ApiStatus.isCheckAPIStatus(it.code(), it.errorBody())
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                msg.value = App.appContext?.getString(R.string.no_internet_available)
+            }
+        }
+    }
+
+    //Get Parent by id
+    val singleParentData = MutableLiveData<SingleParentModelData>()
+    fun getParentById(id:String) {
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                restClient.webServices().getParentByIdAsync(id).await().let {
+                    if (it.isSuccessful)
+                        singleParentData.value=it.body()!!.data
+                    else
+                        msg.value = ApiStatus.isCheckAPIStatus(it.code(), it.errorBody())
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                msg.value = App.appContext?.getString(R.string.no_internet_available)
+            }
+        }
+    }
+
+    //Get Teacher by id
+    val singleTeacherData = MutableLiveData<SingleTeacherModelData>()
+    fun getTeacherById(id:String) {
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                restClient.webServices().getTeacherByIdAsync(id).await().let {
+                    if (it.isSuccessful)
+                        singleTeacherData.value=it.body()!!.data
+                    else
+                        msg.value = ApiStatus.isCheckAPIStatus(it.code(), it.errorBody())
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                msg.value = App.appContext?.getString(R.string.no_internet_available)
+            }
+        }
+    }
+
     //Get All Parents
     fun getParents() {
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                restClient.webServices().getParentAsync().await().let {
+                restClient.webServices().getParentsAsync().await().let {
                     if (it.isSuccessful)
                         parentsDataList.value=it.body()!!.data!!
                     else

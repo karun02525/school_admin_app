@@ -7,7 +7,7 @@ import net.gotev.uploadservice.ServerResponse;
 import net.gotev.uploadservice.UploadInfo;
 import net.gotev.uploadservice.UploadServiceBroadcastReceiver;
 
-public class SingleUploadBroadcastReceiver extends UploadServiceBroadcastReceiver {
+public class SingleUploadBroadcastReceiver extends UploadServiceBroadcastReceiver{
     private String mUploadID;
     private Delegate mDelegate;
 
@@ -50,17 +50,17 @@ public class SingleUploadBroadcastReceiver extends UploadServiceBroadcastReceive
         }
     }
 
-    public interface Delegate {
-        void onProgress(int progress);
+public interface Delegate {
+    void onProgress(int progress);
 
-        void onProgress(long uploadedBytes, long totalBytes);
+    void onProgress(long uploadedBytes, long totalBytes);
 
-        void onError(Exception exception);
+    void onError(Exception exception);
 
-        void onCompleted(int serverResponseCode, byte[] serverResponseBody);
+    void onCompleted(int serverResponseCode, byte[] serverResponseBody);
 
-        void onCancelled();
-    }
+    void onCancelled();
+}
 
 
 }

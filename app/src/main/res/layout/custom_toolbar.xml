@@ -25,11 +25,11 @@
          tools:text="Toolbar"
          app:layout_constraintTop_toTopOf="parent"
          app:layout_constraintBottom_toBottomOf="parent"
-         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintStart_toEndOf="@+id/btn_back"
          app:layout_constraintEnd_toEndOf="parent"
          android:textColor="@color/white"
          android:textStyle="bold"
-         android:textSize="@dimen/_15ssp"
+         android:textSize="@dimen/_13ssp"
          />
 
 
