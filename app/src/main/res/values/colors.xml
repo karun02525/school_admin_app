@@ -11,4 +11,7 @@
     <color name="dark_gray">#A9A9A9</color>
     <color name="dark_late_gray">#2b3e50</color>
     <color name="red">#FF5722</color>
+    <color name="doc_color">#188C81</color>
+
+
 </resources>

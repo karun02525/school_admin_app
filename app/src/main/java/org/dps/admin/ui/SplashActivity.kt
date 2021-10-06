@@ -10,6 +10,7 @@ import org.dps.admin.R
 import org.dps.admin.ui.create.AssignClassTeacherActivity
 import org.dps.admin.ui.create.CreateParentActivity
 import org.dps.admin.ui.create.CreateStudentActivity
+import org.dps.admin.ui.create.UploadDocumentsActivity
 import org.dps.admin.utils.startNewActivityFinish
 
 class SplashActivity : AppCompatActivity() {
@@ -24,7 +25,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         Handler().postDelayed({
-            startNewActivityFinish(CreateStudentActivity::class.java)
+            startNewActivityFinish(UploadDocumentsActivity::class.java)
         }, 100)
 
 

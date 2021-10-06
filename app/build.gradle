@@ -100,6 +100,10 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.4'
 
 
+    implementation 'net.gotev:uploadservice:3.4.2'
+
+    api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+
     implementation 'com.github.kaju02525:Carousel-Banner:1.0.0'
 
     implementation("io.coil-kt:coil-gif:1.1.1")
