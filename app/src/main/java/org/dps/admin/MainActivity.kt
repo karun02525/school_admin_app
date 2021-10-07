@@ -1,11 +1,12 @@
 package org.dps.admin
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
+import android.widget.ExpandableListAdapter
+import android.widget.ExpandableListView
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -13,33 +14,36 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationView
-import org.dps.admin.ui.create.CreateClassActivity
-import org.dps.admin.ui.create.CreateParentActivity
-import org.dps.admin.ui.create.CreateStudentActivity
-import org.dps.admin.ui.create.CreateTeacherActivity
+import kotlinx.android.synthetic.main.activity_main_dashboard.*
+import org.dps.admin.ui.adapter.CustomExpandableListAdapter
 import org.dps.admin.ui.fragments.CreateFragment
 import org.dps.admin.ui.fragments.HomeFragment
 import org.dps.admin.ui.fragments.NotificationFragment
-import org.dps.admin.utils.startNewActivity
-import java.util.*
+import org.dps.admin.utils.MenuUtils
+import org.dps.admin.utils.MenuUtils.navigate
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
-    private var toolbar: Toolbar? = null
 
+    private var expandableListView: ExpandableListView? = null
+    private var adapter: ExpandableListAdapter? = null
+    private var titleList: List<String> ? = null
+
+
+
+
+    private var toolbar: Toolbar? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main_dashboard)
         setToolbar()
         initViews()
-        initComponentsNavHeader()
         loadFragment(HomeFragment.instance())
     }
 
     private fun setToolbar() {
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        Objects.requireNonNull(supportActionBar)!!.setTitle(0)
+        supportActionBar?.setTitle(0)
     }
 
     private fun initViews() {
@@ -47,6 +51,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         navigation.setOnNavigationItemSelectedListener(this)
 
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
+
         val toggle = ActionBarDrawerToggle(
             this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
@@ -57,6 +62,11 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         toggle.setHomeAsUpIndicator(R.drawable.ic_drawer)
         toggle.syncState()
 
+       val navHeader = nav_view.getHeaderView(0);
+       val  tvMenuTitle = navHeader.findViewById<TextView>(R.id.tvMenuTitle)
+        tvMenuTitle.text="hiii"
+        expandableListView = navHeader.findViewById(R.id.expandableListView)
+        expendable()
     }
 
     private fun loadFragment(fragment: Fragment?): Boolean {
@@ -81,40 +91,30 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         return loadFragment(fragment)
     }
 
-    private fun initComponentsNavHeader() {
-        val navigationView = findViewById<NavigationView>(R.id.nav_view)
-        navigationView.setNavigationItemSelectedListener(object :
-                NavigationView.OnNavigationItemSelectedListener {
-            override fun onNavigationItemSelected(item: MenuItem): Boolean {
-                when (item.itemId) {
-                    R.id.create_class -> {
-                        startNewActivity(CreateClassActivity::class.java)
-                    }
-                    R.id.create_parent -> {
-                        startNewActivity(CreateParentActivity::class.java)
-                    }
-                    R.id.create_student -> {
-                        startNewActivity(CreateStudentActivity::class.java)
-                    }
-                    R.id.create_teacher -> {
-                        startNewActivity(CreateTeacherActivity::class.java)
-                    }
-                    R.id.nav_result -> Pesan("My Account")
-                    R.id.nav_support -> Pesan("Support")
-                    R.id.nav_help -> Pesan("Help")
-                    R.id.nav_logout -> Pesan("logout")
+    fun expendable(){
+        if (expandableListView != null) {
+            val listData = MenuUtils.data
+            titleList = ArrayList(listData.keys)
+            adapter = CustomExpandableListAdapter(this, titleList as ArrayList<String>, listData)
+            expandableListView!!.setAdapter(adapter)
 
-                }
-                val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
-                drawer.closeDrawer(GravityCompat.START)
-                return true
+            expandableListView!!.setOnGroupExpandListener {
+                  //  groupPosition -> Toast.makeText(applicationContext, (titleList as ArrayList<String>)[groupPosition] + " List Expanded.", Toast.LENGTH_SHORT).show()
             }
 
-            private fun Pesan(pesan: String) {
-                Toast.makeText(this@MainActivity, pesan, Toast.LENGTH_SHORT).show()
+            expandableListView!!.setOnGroupCollapseListener { groupPosition ->
+               // Toast.makeText(applicationContext, (titleList as ArrayList<String>)[groupPosition] + " List Collapsed.", Toast.LENGTH_SHORT).show()
             }
-        })
+
+            expandableListView!!.setOnChildClickListener { parent, v, groupPosition, childPosition, id ->
+              //  Toast.makeText(applicationContext, "Clicked: " + (titleList as ArrayList<String>)[groupPosition] + " -> " + listData[(titleList as ArrayList<String>)[groupPosition]]!!.get(childPosition), Toast.LENGTH_SHORT).show()
+               val data=listData[(titleList as ArrayList<String>)[groupPosition]]!!.get(childPosition)
+                navigate(data)
+                false
+            }
+        }
     }
+
 
     override fun onBackPressed() {
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)

@@ -283,6 +283,27 @@ class AssignClassTeacherViewModel(private val restClient: RestClient) : ViewMode
 
 
 
+
+    //Create a class
+    fun createClass(classname: String) {
+        val params: HashMap<String, Any> = HashMap()
+        params["name"] = classname
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                restClient.webServices().createClassAsync(params).await().let {
+                    if (it.isSuccessful)
+                        msg.value = JSONObject(it.body().toString()).optString("message")
+                    else
+                        msg.value = ApiStatus.isCheckAPIStatus(it.code(), it.errorBody())
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                msg.value = App.appContext?.getString(R.string.no_internet_available)
+            }
+        }
+    }
+
+
     //Create Parent
     fun createParent(params: HashMap<String, Any>) {
         id.value=""

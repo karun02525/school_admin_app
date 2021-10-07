@@ -29,24 +29,6 @@ class ClassViewModel(private val restClient: RestClient) : ViewModel() {
       //  getTeacher()
     }
 
-    fun createClass(classname: String, section: MutableList<String>) {
-        val params: HashMap<String, Any> = HashMap()
-        params["classname"] = classname
-        params["section"] = section
-        GlobalScope.launch(Dispatchers.Main) {
-            try {
-                restClient.webServices().createClassesAsync(params).await().let {
-                    if (it.isSuccessful)
-                        msg.value = JSONObject(it.body().toString()).optString("message")
-                     else
-                        msg.value = ApiStatus.isCheckAPIStatus(it.code(), it.errorBody())
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                msg.value = App.appContext?.getString(R.string.no_internet_available)
-            }
-        }
-    }
 
 
 

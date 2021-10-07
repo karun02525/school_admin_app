@@ -69,7 +69,6 @@
         app:itemTextColor="@color/drawer_item_color"
         app:headerLayout="@layout/nav_header_main"
         app:itemBackground="@drawable/drawer_selected_item"
-        app:menu="@menu/menu_navigation_drawer"
         tools:ignore="RtlSymmetry">
 
         <RelativeLayout

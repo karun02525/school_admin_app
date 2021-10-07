@@ -1,13 +1,12 @@
 package org.dps.admin.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.Window
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import org.dps.admin.MainActivity
 import org.dps.admin.R
-import org.dps.admin.ui.create.*
 import org.dps.admin.utils.startNewActivityFinish
 
 class SplashActivity : AppCompatActivity() {
@@ -22,7 +21,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         Handler().postDelayed({
-            startNewActivityFinish(TestingDashboard::class.java)
+            startNewActivityFinish(MainActivity::class.java)
         }, 100)
 
 

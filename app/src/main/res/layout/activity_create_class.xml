@@ -6,13 +6,15 @@
     android:fitsSystemWindows="true"
     android:layout_height="wrap_content">
 
+    <include layout="@layout/custom_toolbar" />
 
     <!--Create class-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="7dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/_60sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -48,6 +50,7 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
+                android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:gravity="center"
@@ -56,6 +59,7 @@
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"

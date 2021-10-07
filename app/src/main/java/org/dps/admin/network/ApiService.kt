@@ -62,6 +62,9 @@ interface ApiService {
     @DELETE("/api/admin/assign-teacher/{class_id} ")
     fun assignClassTeacherDeleteAsync(@Path("class_id")class_id:String): Deferred<Response<JsonObject>>
 
+    @POST("/api/class")
+    fun createClassAsync(@Body param:HashMap<String,Any>): Deferred<Response<JsonObject>>
+
     @POST("/api/parent")
     fun createParentAsync(@Body param:HashMap<String,Any>): Deferred<Response<JsonObject>>
 
