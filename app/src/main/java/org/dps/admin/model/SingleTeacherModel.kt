@@ -15,7 +15,7 @@ data class SingleTeacherModelData(
     @SerializedName("address")
     var address: String? = "",
     @SerializedName("avatar")
-    var avatar: String? = "",
+    var avatar: String = "",
     @SerializedName("dob")
     var dob: String? = "",
     @SerializedName("doc_back_avatar")

@@ -11,6 +11,24 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnCreateParent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Parent"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnCreateStudent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Student"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnCreateTeacher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Teacher"/>
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnStudent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

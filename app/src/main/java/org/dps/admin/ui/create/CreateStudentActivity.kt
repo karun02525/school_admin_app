@@ -2,6 +2,7 @@ package org.dps.admin.ui.create
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -18,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_create_student.edit_mobile
 import kotlinx.android.synthetic.main.activity_create_student.progress_circular
 import kotlinx.android.synthetic.main.activity_create_student.radioGroup
 import kotlinx.android.synthetic.main.activity_create_student.sp_doc_type
+import kotlinx.android.synthetic.main.custom_toolbar.*
 import org.dps.admin.R
 import org.dps.admin.model.ClassData
 import org.dps.admin.model.ParentData
@@ -35,7 +37,7 @@ class CreateStudentActivity : AppCompatActivity() {
     private var dob = ""
     private var gender = "Male"
     private var docType = ""
-
+    private var sourceTitleName="Student"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +45,10 @@ class CreateStudentActivity : AppCompatActivity() {
         hideShowProgress(true)
         setupViewModel()
 
+
+
+        tv_toolbar.text="Create $sourceTitleName"
+        btn_back.setOnClickListener { onBackPressed() }
 
 
         viewModel.getClasses()
@@ -134,7 +140,7 @@ class CreateStudentActivity : AppCompatActivity() {
                 p["dob"] = dob
                 p["qualification"] = qualification
                 p["doc_id"] = docNo
-                p["docoment"] = docType
+                p["document"] = docType
                 hideShowProgress(true)
                 viewModel.createStudentAsync(p)
             }
@@ -163,6 +169,15 @@ class CreateStudentActivity : AppCompatActivity() {
         viewModel.msg.observe(this, Observer {
             hideShowProgress(false)
             toast(it)
+        })
+        viewModel.id.observe(this, Observer {
+            if(it!=""){
+                startActivity(
+                    Intent(baseContext,UploadDocumentsActivity::class.java)
+                        .putExtra("source",sourceTitleName)
+                        .putExtra("id",it)
+                )
+            }
         })
     }
 

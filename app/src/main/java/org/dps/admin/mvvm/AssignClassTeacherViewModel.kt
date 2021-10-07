@@ -16,6 +16,7 @@ class AssignClassTeacherViewModel(private val restClient: RestClient) : ViewMode
 
      val msg = MutableLiveData<String>()
      val success = MutableLiveData<String>()
+     val id = MutableLiveData<String>("")
 
 
     val classDataList = MutableLiveData<List<ClassData>>()
@@ -244,6 +245,25 @@ class AssignClassTeacherViewModel(private val restClient: RestClient) : ViewMode
         }
     }
 
+
+    //delete file user profile or documents
+    val deteteFilesuccess = MutableLiveData<String>("")
+    fun deleteUploadFile(id:String,type:String,source:String) {
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                restClient.webServices().deleteUploadFileAsync(id,type,source).await().let {
+                    if (it.isSuccessful)
+                        deteteFilesuccess.value = JSONObject(it.body().toString()).optString("message")
+                    else
+                        msg.value = ApiStatus.isCheckAPIStatus(it.code(), it.errorBody())
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                msg.value = App.appContext?.getString(R.string.no_internet_available)
+            }
+        }
+    }
+
     //Get All Parents
     fun getParents() {
         GlobalScope.launch(Dispatchers.Main) {
@@ -265,12 +285,14 @@ class AssignClassTeacherViewModel(private val restClient: RestClient) : ViewMode
 
     //Create Parent
     fun createParent(params: HashMap<String, Any>) {
+        id.value=""
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 restClient.webServices().createParentAsync(params).await().let {
-                    if (it.isSuccessful)
+                    if (it.isSuccessful) {
                         success.value = JSONObject(it.body().toString()).optString("message")
-                    else
+                        id.value = JSONObject(it.body().toString()).optString("id")
+                    } else
                         msg.value = ApiStatus.isCheckAPIStatus(it.code(), it.errorBody())
                 }
             } catch (e: Exception) {
@@ -282,11 +304,14 @@ class AssignClassTeacherViewModel(private val restClient: RestClient) : ViewMode
 
     //Create Student
     fun createStudentAsync(params: HashMap<String, Any>) {
+        id.value=""
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 restClient.webServices().createStudentAsync(params).await().let {
-                    if (it.isSuccessful)
+                    if (it.isSuccessful) {
                         success.value = JSONObject(it.body().toString()).optString("message")
+                        id.value = JSONObject(it.body().toString()).optString("id")
+                    }
                     else
                         msg.value = ApiStatus.isCheckAPIStatus(it.code(), it.errorBody())
                 }
@@ -298,13 +323,16 @@ class AssignClassTeacherViewModel(private val restClient: RestClient) : ViewMode
     }
 
 
-    fun createTeacherAsync(params: HashMap<String, Any>) {
+    //Create Teacher
+    fun createTeacher(params: HashMap<String, Any>) {
+        id.value=""
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 restClient.webServices().createTeacherAsync(params).await().let {
-                    if (it.isSuccessful)
+                    if (it.isSuccessful) {
                         success.value = JSONObject(it.body().toString()).optString("message")
-                    else
+                        id.value = JSONObject(it.body().toString()).optString("id")
+                    } else
                         msg.value = ApiStatus.isCheckAPIStatus(it.code(), it.errorBody())
                 }
             } catch (e: Exception) {
@@ -313,6 +341,7 @@ class AssignClassTeacherViewModel(private val restClient: RestClient) : ViewMode
             }
         }
     }
+
     fun getStudentDataAsync(class_id: String) {
         GlobalScope.launch(Dispatchers.Main) {
             try {

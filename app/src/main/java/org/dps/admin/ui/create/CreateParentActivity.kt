@@ -2,6 +2,7 @@ package org.dps.admin.ui.create
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -10,6 +11,7 @@ import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.activity_create_parent.*
+import kotlinx.android.synthetic.main.custom_toolbar.*
 import org.dps.admin.R
 import org.dps.admin.mvvm.AssignClassTeacherViewModel
 import org.dps.admin.utils.hideSoftKeyboard
@@ -26,12 +28,22 @@ class CreateParentActivity : AppCompatActivity() {
     private var distc = ""
     private var state = ""
     private var postOffice = ""
+    private var sourceTitleName="Parent"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_parent)
         setupViewModel()
+
+
+
+
+        btn_back.setOnClickListener { onBackPressed() }
+
+        tv_toolbar.text="Create $sourceTitleName"
+
+
 
         btnSubmit.setOnClickListener {
             isCheckUI()
@@ -166,7 +178,7 @@ class CreateParentActivity : AppCompatActivity() {
                 p["address"] = address.trim()
                 p["occupation"] = occupation.trim()
                 p["doc_id"] = docNo
-                p["docoment"] = docType
+                p["document"] = docType
                 p["state"] = state
                 p["distc"] = distc
                 p["post_office"] = postOffice
@@ -190,6 +202,15 @@ class CreateParentActivity : AppCompatActivity() {
         viewModel.msg.observe(this, Observer {
             hideShowProgress(false)
             toast(it)
+        })
+        viewModel.id.observe(this, Observer {
+            if(it!=""){
+                startActivity(
+                    Intent(baseContext,UploadDocumentsActivity::class.java)
+                    .putExtra("source",sourceTitleName)
+                    .putExtra("id",it)
+                )
+            }
         })
     }
 

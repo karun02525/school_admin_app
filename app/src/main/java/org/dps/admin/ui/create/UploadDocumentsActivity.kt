@@ -2,32 +2,31 @@ package org.dps.admin.ui.create
 
 import android.Manifest
 import android.app.AlertDialog
+import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
-import android.util.Log
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
 import com.squareup.picasso.Callback
-import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.Picasso
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.activity_upload_documents.*
 import kotlinx.android.synthetic.main.custom_toolbar.*
+import kotlinx.android.synthetic.main.dialog_delete_photos.view.*
 import net.gotev.uploadservice.MultipartUploadRequest
 import net.gotev.uploadservice.UploadNotificationConfig
 import net.gotev.uploadservice.UploadService
@@ -36,6 +35,7 @@ import org.dps.admin.R
 import org.dps.admin.mvvm.AssignClassTeacherViewModel
 import org.dps.admin.network.Const.BASE_URL
 import org.dps.admin.utils.SingleUploadBroadcastReceiver
+import org.dps.admin.utils.log
 import org.dps.admin.utils.toast
 import org.json.JSONException
 import org.json.JSONObject
@@ -50,6 +50,10 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
         const val RESULT_LOAD_IMG = 1
         const val PERMISSION_GALLERY = 1
         var checkType = ""
+
+        const val fileKeyImage = "avatar"
+        const val fileKeyFront = "doc_front_avatar"
+        const val fileKeyBack = "doc_back_avatar"
     }
 
     private val uploadReceiver = SingleUploadBroadcastReceiver()
@@ -59,6 +63,7 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
     private var uploadImageUrl = ""
     private var uploadDocFrontUrl = ""
     private var uploadDocBackUrl = ""
+    private var documentName = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upload_documents)
@@ -75,25 +80,12 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
         uploadDocBackUrl = "$BASE_URL/api/admin/upload-document-back"
 
         tv_toolbar.text = "($source) Updates Profile & Documents"
-        tvProfileInfo.text = "1. Upload $source $ profile photo."
+        tvProfileInfo.text = "1. Upload $source profile photo."
         tvFront.text = "2. Upload $source document front photo."
         tvBack.text = "3. Upload $source document back photo."
 
 
-        hideShowProgress(true)
-        if (source == "Student") {
-            viewModel.getStudentById(id)
-        }
-        if (source == "Parent") {
-            viewModel.getParentById(id)
-            editPic.visibility = View.GONE
-            pic.visibility = View.GONE
-            labeleds.visibility = View.GONE
-            tvStatus.visibility = View.GONE
-        }
-        if (source == "Teacher") {
-            viewModel.getTeacherById(id)
-        }
+        apiCall()
 
 
         editPic.setOnClickListener {
@@ -111,32 +103,90 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
 
         btn_back.setOnClickListener { onBackPressed() }
 
+
+        btnDeleteProfile.setOnClickListener { showDialogDelete("Profile Photo", fileKeyImage) }
+        btnDeleteFront.setOnClickListener {
+            showDialogDelete(
+                "$documentName Front Document",
+                fileKeyFront
+            )
+        }
+        btnDeleteBack.setOnClickListener {
+            showDialogDelete(
+                "$documentName Back Document",
+                fileKeyBack
+            )
+        }
+
+
+
+
+
         setupViewModel()
     }
 
-    override fun onDestroy() {
-        viewModel.singleStudentData.value=null
-        viewModel.singleParentData.value=null
-        viewModel.singleTeacherData.value=null
-        viewModel.msg.value=null
-        super.onDestroy()
+    private fun apiCall() {
+        hideShowProgress(true)
+        if (source == "Student") {
+            viewModel.getStudentById(id)
+        }
+        if (source == "Parent") {
+            viewModel.getParentById(id)
+            editPic.visibility = View.GONE
+            pic.visibility = View.GONE
+            labeleds.visibility = View.GONE
+            tvStatus.visibility = View.GONE
+        }
+        if (source == "Teacher") {
+            viewModel.getTeacherById(id)
+        }
     }
 
-    private fun setupViewModel() {
 
+    private fun setupViewModel() {
         viewModel.singleStudentData.observe(this, Observer {
             hideShowProgress(false)
-            setUpBind(it.fname + " " + it.lname, "", it.avatar, it.docFrontAvatar, it.docBackAvatar,it.document)
+            setUpBind(
+                it.fname + " " + it.lname,
+                "",
+                it.avatar,
+                it.docFrontAvatar,
+                it.docBackAvatar,
+                it.document
+            )
         })
 
         viewModel.singleParentData.observe(this, Observer {
             hideShowProgress(false)
-            setUpBind(it.fullname, it.mobile, it.avatar, it.docFrontAvatar, it.docBackAvatar,it.document)
+            setUpBind(
+                it.fullname,
+                it.mobile,
+                "_",
+                it.docFrontAvatar,
+                it.docBackAvatar,
+                it.document
+            )
         })
 
         viewModel.singleTeacherData.observe(this, Observer {
             hideShowProgress(false)
-           setUpBind( it.fname + " " + it.lname, it.mobile, it.avatar, it.docFrontAvatar, it.docBackAvatar,it.document )
+            setUpBind(
+                it.fname + " " + it.lname,
+                it.mobile,
+                it.avatar,
+                it.docFrontAvatar,
+                it.docBackAvatar,
+                it.document
+            )
+        })
+
+        viewModel.deteteFilesuccess.observe(this, Observer {
+            if(it !="") {
+                hideShowProgress(false)
+                log("deteteFilesuccess ********")
+                toast(it)
+                apiCall()
+            }
         })
 
         viewModel.msg.observe(this, Observer {
@@ -148,18 +198,25 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
     private fun setUpBind(
         name: String,
         mob: String,
-        avatar: String?,
+        avatar: String,
         frontDoc: String,
         backDoc: String,
-        document:String
+        document: String
     ) {
+        documentName = document
         tvFront.text = "2. Upload $source $document front photo."
         tvBack.text = "3. Upload $source $document back photo."
 
 
         tvName.text = name
-        if (avatar == "") {
+        if (avatar =="_") {
+            editPic.visibility = View.GONE
+        }else if (avatar == "") {
             tvStatus.text = "pending"
+            tvStatus.setTextColor(resources.getColor(R.color.red))
+            btnDeleteProfile.visibility = View.GONE
+            pic.setImageResource(R.drawable.profile_pic)
+            editPic.visibility = View.VISIBLE
         } else {
             Picasso.get()
                 .load("$BASE_URL/$avatar")
@@ -168,10 +225,15 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
                         tvStatus.text = "active"
                         tvStatus.setTextColor(resources.getColor(R.color.doc_color))
                         editPic.visibility = View.GONE
+                        btnDeleteProfile.visibility = View.VISIBLE
+
                     }
+
                     override fun onError(e: Exception?) {
                         editPic.visibility = View.VISIBLE
+                        btnDeleteProfile.visibility = View.GONE
                         tvStatus.text = "pending"
+                        tvStatus.setTextColor(resources.getColor(R.color.red))
                         pic.setImageResource(R.drawable.profile_pic)
                     }
                 })
@@ -188,14 +250,19 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
 
         if (frontDoc == "") {
             tvFrontSide.visibility = View.VISIBLE
+            btnDeleteFront.visibility = View.GONE
+            ivFront.setImageResource(R.drawable.ic_placeholder_front)
         } else {
             Picasso.get()
                 .load("$BASE_URL/$frontDoc")
                 .into(ivFront, object : Callback {
                     override fun onSuccess() {
+                        btnDeleteFront.visibility = View.VISIBLE
                         tvFrontSide.visibility = View.GONE
                     }
+
                     override fun onError(e: Exception?) {
+                        btnDeleteFront.visibility = View.GONE
                         ivFront.setImageResource(R.drawable.ic_placeholder_front)
                         tvFrontSide.visibility = View.VISIBLE
                     }
@@ -204,20 +271,51 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
 
         if (backDoc == "") {
             tvBackSide.visibility = View.VISIBLE
+            btnDeleteBack.visibility = View.GONE
+            ivBack.setImageResource(R.drawable.ic_placeholder_back)
+
         } else {
             Picasso.get()
                 .load("$BASE_URL/$backDoc")
                 .into(ivBack, object : Callback {
                     override fun onSuccess() {
                         tvBackSide.visibility = View.GONE
+                        btnDeleteBack.visibility = View.VISIBLE
                     }
+
                     override fun onError(e: Exception?) {
+                        btnDeleteBack.visibility = View.GONE
                         ivBack.setImageResource(R.drawable.ic_placeholder_back)
                         tvBackSide.visibility = View.VISIBLE
                     }
                 })
         }
 
+
+    }
+
+    private fun showDialogDelete(title: String, fileKeySource: String) {
+        val dialog = LayoutInflater.from(this).inflate(R.layout.dialog_delete_photos, null)
+        val mDialog = Dialog(this, R.style.MaterialDialogSheet)
+        mDialog.setContentView(dialog)
+        mDialog.setCancelable(true)
+        mDialog.window?.setLayout(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        mDialog.window!!.setGravity(Gravity.CENTER)
+        mDialog.show()
+        dialog.btnCancel.setOnClickListener { mDialog.dismiss() }
+
+        dialog.tvTitle.text = title
+        dialog.tvMess.text = "Do you want to delete ${title.lowercase(Locale.getDefault())}?"
+
+
+        dialog.btnYes.setOnClickListener {
+            mDialog.dismiss()
+            hideShowProgress(true)
+            viewModel.deleteUploadFile(id, source.lowercase(Locale.getDefault()), fileKeySource)
+        }
 
     }
 
@@ -247,46 +345,46 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-                if (resultCode == RESULT_OK) {
-                    val result = CropImage.getActivityResult(data)
-                    val resultPath: String? = result?.uri?.path
-                    if (checkType == "profile") {
-                        Glide.with(this).load(resultPath).into(pic)
-                        uploadImage(uploadImageUrl, resultPath!!, id, source.lowercase())
-                    }
-                    if (checkType == "frontSide") {
-                        tvFrontSide.visibility = View.GONE
-                        Glide.with(this).load(resultPath).into(ivFront)
-                        uploadImageDoc(
-                            uploadDocFrontUrl,
-                            resultPath!!,
-                            id,
-                            source.lowercase(),
-                            "doc_front"
-                        )
-                    }
-                    if (checkType == "backSide") {
-                        tvBackSide.visibility = View.GONE
-                        Glide.with(this).load(resultPath).into(ivBack)
-                        uploadImageDoc(
-                            uploadDocBackUrl,
-                            resultPath!!,
-                            id,
-                            source.lowercase(),
-                            "doc_back"
-                        )
-                    }
-
-                } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                   // val error: Exception = result.error
-                    toast("Uploading photo failed! Please try again later.")
+            if (resultCode == RESULT_OK) {
+                val result = CropImage.getActivityResult(data)
+                val resultPath: String? = result?.uri?.path
+                if (checkType == "profile") {
+                    Glide.with(this).load(resultPath).into(pic)
+                    uploadImage(uploadImageUrl, resultPath!!, id, source.lowercase())
                 }
+                if (checkType == "frontSide") {
+                    tvFrontSide.visibility = View.GONE
+                    Glide.with(this).load(resultPath).into(ivFront)
+                    uploadImageDoc(
+                        uploadDocFrontUrl,
+                        resultPath!!,
+                        id,
+                        source.lowercase(),
+                        fileKeyFront
+                    )
+                }
+                if (checkType == "backSide") {
+                    tvBackSide.visibility = View.GONE
+                    Glide.with(this).load(resultPath).into(ivBack)
+                    uploadImageDoc(
+                        uploadDocBackUrl,
+                        resultPath!!,
+                        id,
+                        source.lowercase(),
+                        fileKeyBack
+                    )
+                }
+
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                // val error: Exception = result.error
+                toast("Uploading photo failed! Please try again later.")
             }
-            if (requestCode == RESULT_LOAD_IMG && resultCode == RESULT_OK && data != null) {
-                CropImage.activity(data.data)
-                    .setGuidelines(CropImageView.Guidelines.ON)
-                    .start(this)
-            }
+        }
+        if (requestCode == RESULT_LOAD_IMG && resultCode == RESULT_OK && data != null) {
+            CropImage.activity(data.data)
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .start(this)
+        }
     }
 
 
@@ -301,7 +399,7 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
             uploadReceiver.setUploadID(uploadId)
 
             MultipartUploadRequest(applicationContext, uploadId, url)
-                .addFileToUpload(imagePath, "image")
+                .addFileToUpload(imagePath, fileKeyImage)
                 .addParameter("id", id)
                 .addParameter("type", type)
                 // .addHeader("Authorization", "")
@@ -314,7 +412,13 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
         }
     }
 
-    private fun uploadImageDoc(url: String, imagePath: String, id: String, type: String,param:String) {
+    private fun uploadImageDoc(
+        url: String,
+        imagePath: String,
+        id: String,
+        type: String,
+        param: String
+    ) {
         progress = ProgressDialog(this);
         progress?.setMessage(resources.getString(R.string.pleaseWait))
         progress?.setCancelable(true)
@@ -358,18 +462,20 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
 
     override fun onCompleted(serverResponseCode: Int, serverResponseBody: ByteArray?) {
         val s = String(serverResponseBody!!)
-        Log.d("serverResponseBody", s)
+        log("serverResponseBody:  $s")
         try {
             val rootObject = JSONObject(String(serverResponseBody))
-            println("..............Root Response......................$rootObject")
+            log("..............Root Response......................$rootObject")
             try {
                 if (progress != null && progress!!.isShowing()) {
                     progress!!.dismiss()
                 }
             } catch (error: Throwable) {
             }
-            if (rootObject.getString("code") == "200") {
-                val data = rootObject.getJSONObject("data")
+            if (rootObject.getBoolean("status")) {
+                apiCall()
+                toast(rootObject.getString("message"))
+
             } else if (rootObject.getInt("code") == 400) {
 
             }
@@ -480,4 +586,5 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
         pickIntent.type = "image/*"
         startActivityForResult(pickIntent, RESULT_LOAD_IMG)
     }
+
 }

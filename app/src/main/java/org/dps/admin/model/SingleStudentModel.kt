@@ -13,7 +13,7 @@ data class SingleStudentModel(
 
 data class SingleStudentModelData(
     @SerializedName("avatar")
-    var avatar: String? = "",
+    var avatar: String = "",
     @SerializedName("class_id")
     var classId: String? = "",
     @SerializedName("dob")

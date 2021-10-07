@@ -26,14 +26,6 @@ interface ApiService {
     fun assignRollNoAsync(@Body param:HashMap<String,Any>): Deferred<Response<JsonObject>>
 
 
-
-
-    @POST("/api/teacher/auth/register")
-    fun createTeacherAsync(@Body param:HashMap<String,Any>): Deferred<Response<JsonObject>>
-
-
-
-
     @GET("/api/student/{id}")
     fun getStudentByIdAsync(@Path("id") id:String): Deferred<Response<SingleStudentModel>>
 
@@ -42,6 +34,11 @@ interface ApiService {
 
     @GET("/api/teacher/{id}")
     fun getTeacherByIdAsync(@Path("id") id:String): Deferred<Response<SingleTeacherModel>>
+
+    @DELETE("/api/admin/delete-upload-file")
+    fun deleteUploadFileAsync(@Query("id") id:String,
+                              @Query("type") type:String,
+                              @Query("source") source:String): Deferred<Response<JsonObject>>
 
 
     @GET("/api/class")
@@ -70,6 +67,9 @@ interface ApiService {
 
     @POST("/api/student")
     fun createStudentAsync(@Body param:HashMap<String,Any>): Deferred<Response<JsonObject>>
+
+    @POST("/api/teacher")
+    fun createTeacherAsync(@Body param:HashMap<String,Any>): Deferred<Response<JsonObject>>
 
 
 

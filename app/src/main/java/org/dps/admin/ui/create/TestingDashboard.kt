@@ -12,6 +12,28 @@ class TestingDashboard : AppCompatActivity() {
         setContentView(R.layout.activity_testing_dashboard)
 
 
+        btnCreateParent.setOnClickListener {
+            startActivity(Intent(baseContext,CreateParentActivity::class.java)
+                .putExtra("source","Student")
+                .putExtra("id","615c2af2b84ff4fec1c4a862")
+            )
+        }
+
+        btnCreateStudent.setOnClickListener {
+            startActivity(Intent(baseContext,CreateStudentActivity::class.java)
+                .putExtra("source","Student")
+                .putExtra("id","615c2af2b84ff4fec1c4a862")
+            )
+        }
+
+        btnCreateTeacher.setOnClickListener {
+            startActivity(Intent(baseContext,CreateTeacherActivity::class.java)
+                .putExtra("source","Student")
+                .putExtra("id","615c2af2b84ff4fec1c4a862")
+            )
+        }
+
+
         btnStudent.setOnClickListener {
            startActivity(Intent(baseContext,UploadDocumentsActivity::class.java)
                .putExtra("source","Student")
