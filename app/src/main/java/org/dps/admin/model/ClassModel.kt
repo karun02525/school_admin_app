@@ -13,9 +13,9 @@ data class ClassModel(
 
 data class ClassData(
     @SerializedName("_id")
-    var id: String? = "",
+    var id: String = "",
     @SerializedName("name")
-    var name: String? = ""
+    var name: String = ""
 ){
     override fun toString(): String {
         return name.toString()

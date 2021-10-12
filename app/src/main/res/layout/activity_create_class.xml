@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:fitsSystemWindows="true"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <include layout="@layout/custom_toolbar" />
 
     <!--Create class-->
     <RelativeLayout
+        android:id="@+id/rlClass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_60sdp"
@@ -141,6 +141,59 @@
             android:textStyle="bold" />
 
     </RelativeLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="@dimen/_5sdp"
+        android:id="@+id/clLab"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rlClass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/light_sea_green"
+        android:layout_marginTop="@dimen/_5sdp">
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/LabSrNo"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="Sr No."
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/LabClass"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Class name"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/LabSrNo"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_classes"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/clLab"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="3"
+        tools:listitem="@layout/adapter_class" />
+
 
     <ProgressBar
         android:id="@+id/progress_circular"

@@ -18,7 +18,7 @@ data class DataModel(
     @SerializedName("status")
     var status: Int? = 0,
     @SerializedName("teacher")
-    var teacher: Teacher,
+    var teacher: Teacher?=null,
     @SerializedName("updatedAt")
     var updatedAt: String = ""
 )

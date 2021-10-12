@@ -1,10 +1,11 @@
 package org.dps.admin.utils
 
 import android.content.Context
-import org.dps.admin.ui.create.CreateClassActivity
-import org.dps.admin.ui.create.CreateParentActivity
-import org.dps.admin.ui.create.CreateStudentActivity
-import org.dps.admin.ui.create.CreateTeacherActivity
+import org.dps.admin.ui.assign.AssignClassTeacherActivity
+import org.dps.admin.ui.assign.AssignRollNoActivity
+import org.dps.admin.ui.create.*
+import org.dps.admin.ui.delete.DeleteClassActivity
+import org.dps.admin.ui.show.ShowClassWiseStudentsActivity
 
 object MenuUtils {
 
@@ -13,10 +14,8 @@ object MenuUtils {
             val listData = LinkedHashMap<String, List<String>>()
             val classs = ArrayList<String>()
             classs.add("Create a class")
-            classs.add("Update a class")
             classs.add("Delete a class")
-            classs.add("Search a class")
-            classs.add("Search all classes")
+            classs.add("Show class wise students")
 
             val parent = ArrayList<String>()
             parent.add("Create a parent")
@@ -39,11 +38,21 @@ object MenuUtils {
             teacher.add("Search a teacher")
             teacher.add("Search all teacher")
 
+            val assignRollNo = ArrayList<String>()
+            assignRollNo.add("Assign Roll No")
+            assignRollNo.add("Pending assign roll no")
+
+
+            val assignClassTeacher = ArrayList<String>()
+            assignClassTeacher.add("Assign Class Teacher")
+
 
             listData["Class"] = classs
             listData["Parent"] = parent
             listData["Student"] = student
             listData["Teacher"] = teacher
+            listData["Assign Roll No"] = assignRollNo
+            listData["Assign Class Teacher"] = assignClassTeacher
 
             return listData
         }
@@ -53,14 +62,11 @@ object MenuUtils {
             "Create a class" -> {
                 startNewActivity(CreateClassActivity::class.java)
             }
-            "Update a class" -> {
-                startNewActivity(CreateClassActivity::class.java)
-            }
             "Delete a class" -> {
-                startNewActivity(CreateClassActivity::class.java)
+                startNewActivity(DeleteClassActivity::class.java)
             }
-            "Search a class" -> {
-                startNewActivity(CreateClassActivity::class.java)
+            "Show class wise students" -> {
+                startNewActivity(ShowClassWiseStudentsActivity::class.java)
             }
             "Search all class" -> {
                 startNewActivity(CreateClassActivity::class.java)
@@ -109,6 +115,10 @@ object MenuUtils {
             }
             "Search all teacher" -> {
                 startNewActivity(CreateClassActivity::class.java)
+            }"Assign Roll No" -> {
+                startNewActivity(AssignRollNoActivity::class.java)
+            }"Assign Class Teacher" -> {
+                startNewActivity(AssignClassTeacherActivity::class.java)
             }
 
         }

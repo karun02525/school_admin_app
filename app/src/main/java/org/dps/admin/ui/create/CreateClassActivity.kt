@@ -1,19 +1,25 @@
 package org.dps.admin.ui.create
 
+import android.app.Dialog
 import android.os.Bundle
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.activity_create_class.*
 import kotlinx.android.synthetic.main.custom_toolbar.*
+import kotlinx.android.synthetic.main.dialog_delete_photos.view.*
 import org.dps.admin.R
 import org.dps.admin.mvvm.AssignClassTeacherViewModel
+import org.dps.admin.ui.adapter.ClassAdapter
 import org.dps.admin.utils.toast
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class CreateClassActivity : AppCompatActivity() {
     private val viewModel: AssignClassTeacherViewModel by viewModel()
-   // var sectionArray = mutableListOf<String>()
+    private val mAdapter by lazy { ClassAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,9 +27,9 @@ class CreateClassActivity : AppCompatActivity() {
         setupViewModel()
 
 
-        tv_toolbar.text="Create a Class"
+        tv_toolbar.text = "Create a Class"
         btn_back.setOnClickListener { onBackPressed() }
-
+        callApi()
 
         btnSubmit.setOnClickListener {
             val msg = edit_classes.text.toString()
@@ -31,9 +37,6 @@ class CreateClassActivity : AppCompatActivity() {
                 msg.isEmpty() -> {
                     toast("Please enter class name")
                 }
-               /* sectionArray.isEmpty() -> {
-                    toast("Please select one section")
-                }*/
                 else -> {
                     hideShowProgress(true)
                     viewModel.createClass(msg)
@@ -42,19 +45,40 @@ class CreateClassActivity : AppCompatActivity() {
         }
     }
 
-
+    private fun callApi() {
+        hideShowProgress(true)
+        viewModel.getClasses()
+    }
 
     private fun setupViewModel() {
         viewModel.msg.observe(this, Observer {
             hideShowProgress(false)
-            edit_classes.text?.clear()
+            if(it=="successfully create a class") {
+                callApi()
+                edit_classes.text?.clear()
+            }
             toast(it)
+        })
+
+        viewModel.classDataList.observe(this, Observer {
+            hideShowProgress(false)
+            if(it.isNotEmpty()) {
+                mAdapter.list = it
+                rv_classes.adapter = mAdapter
+                mAdapter.notifyDataSetChanged()
+            }
         })
     }
 
     private fun hideShowProgress(flag: Boolean) {
-        if (flag) progress_circular.visibility = View.VISIBLE else progress_circular.visibility = View.GONE
+        if (flag) progress_circular.visibility = View.VISIBLE else progress_circular.visibility =
+            View.GONE
     }
+
+}
+
+
+
 
 
 
@@ -102,4 +126,4 @@ class CreateClassActivity : AppCompatActivity() {
 
 
 
-}
+

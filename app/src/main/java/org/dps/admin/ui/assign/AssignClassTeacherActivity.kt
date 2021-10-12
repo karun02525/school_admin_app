@@ -1,9 +1,7 @@
-package org.dps.admin.ui.create
+package org.dps.admin.ui.assign
 
 import android.annotation.SuppressLint
 import android.app.Dialog
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -15,12 +13,11 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_assign_class_teacher.*
-import kotlinx.android.synthetic.main.activity_assign_teacher.*
 import kotlinx.android.synthetic.main.adapter_class_teacher.view.*
 import kotlinx.android.synthetic.main.bottomsheet_profile_boost.view.*
 import kotlinx.android.synthetic.main.custom_toolbar.*
+import kotlinx.android.synthetic.main.dialog_delete_photos.view.*
 import org.dps.admin.R
 import org.dps.admin.model.DataModel
 import org.dps.admin.model.TeacherData
@@ -77,8 +74,29 @@ class AssignClassTeacherActivity : AppCompatActivity() {
             View.GONE
     }
 
-    fun deleteAssignClassTeacher(class_id: String){
-        viewModel.assignClassTeacherDelete(class_id)
+    fun showDialogDelete(class_id: String,name: String,className:String) {
+        val dialog = LayoutInflater.from(this).inflate(R.layout.dialog_delete_photos, null)
+        val mDialog = Dialog(this, R.style.MaterialDialogSheet)
+        mDialog.setContentView(dialog)
+        mDialog.setCancelable(true)
+        mDialog.window?.setLayout(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        mDialog.window!!.setGravity(Gravity.CENTER)
+        mDialog.show()
+        dialog.btnCancel.setOnClickListener { mDialog.dismiss() }
+
+        dialog.tvTitle.text = "$className($name)"
+        dialog.tvMess.text = "Do you want to delete assign class teacher $name by $className?"
+
+
+        dialog.btnYes.setOnClickListener {
+            mDialog.dismiss()
+            hideShowProgress(true)
+            viewModel.assignClassTeacherDelete(class_id)
+        }
+
     }
 
 
@@ -135,7 +153,7 @@ class ShowClassesAdapter(var list: List<DataModel> = listOf()) : RecyclerView.Ad
             itemView.run {
                 tvClassname.text=model.name
                 tvDate.text=convertMongoDate(model.updatedAt)
-
+                val name= model.teacher?.fname + " " + model.teacher?.lname
                 if(model.status==0){
                     tvStatus.text="Inactive"
                     tvStatus.setTextColor(resources.getColor(R.color.red))
@@ -147,19 +165,22 @@ class ShowClassesAdapter(var list: List<DataModel> = listOf()) : RecyclerView.Ad
                     btnDelete.visibility=View.GONE
                     lableteacher.visibility=View.GONE
                     tvTeachername.visibility=View.GONE
+                    lableMob.visibility=View.GONE
+                    tv_mob.visibility=View.GONE
                 }else {
                     btnApply.visibility=View.GONE
                     btnDelete.visibility=View.VISIBLE
                     lableteacher.visibility=View.VISIBLE
                     tvTeachername.visibility=View.VISIBLE
-                    tvTeachername.text = model.teacher.fname + " " + model.teacher.fname
+                    tvTeachername.text =name
+                    tv_mob.text = model.teacher?.mobile
                 }
 
                 btnApply.setOnClickListener {
                     (context as  AssignClassTeacherActivity).showProfileBoostDialog(model.classId,model.name)
                 }
                 btnDelete.setOnClickListener {
-                    (context as  AssignClassTeacherActivity).deleteAssignClassTeacher(model.classId)
+                    (context as  AssignClassTeacherActivity).showDialogDelete(model.classId,name,model.name)
                 }
             }
         }

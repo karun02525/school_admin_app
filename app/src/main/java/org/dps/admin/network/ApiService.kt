@@ -13,17 +13,12 @@ interface ApiService {
     @GET("/compassLocation/rest/address/autocomplete?queryString=airtel")
     fun setSuggestionsAsync(@Query("city") cityName: String): Deferred<Response<Suggestion>>
 
-    @GET("/api/admin/students")
-    fun getStudentDataAsync(@Query("class_id") class_id: String): Deferred<Response<StudentModel>>
 
     @POST("/api/admin/classes")
     fun createClassesAsync(@Body param:HashMap<String,Any>): Deferred<Response<JsonObject>>
 
     @POST("/api/admin/assign-teacher")
     fun assignTeacherAsync(@Body param:HashMap<String,Any>): Deferred<Response<JsonObject>>
-
-    @POST("/api/admin/assign-rollno")
-    fun assignRollNoAsync(@Body param:HashMap<String,Any>): Deferred<Response<JsonObject>>
 
 
     @GET("/api/student/{id}")
@@ -40,6 +35,10 @@ interface ApiService {
                               @Query("type") type:String,
                               @Query("source") source:String): Deferred<Response<JsonObject>>
 
+
+
+    @GET("/api/admin/search-students")
+    fun getAllStudentByClassIdAsync(@Query("class_id") class_id: String): Deferred<Response<StudentModel>>
 
     @GET("/api/class")
     fun getClassAsync(): Deferred<Response<ClassModel>>
@@ -59,8 +58,16 @@ interface ApiService {
     @PUT("/api/admin/assign-teacher/{class_id}")
     fun assignClassTeacherAsync(@Body param:HashMap<String,String>,@Path("class_id")class_id:String): Deferred<Response<JsonObject>>
 
+    @PUT("/api/admin/assign-rollno")
+    fun assignRollNoAsync(@Query("class_id") class_id:String,
+                          @Query("student_id") student_id:String,
+                          @Query("rollno") rollno:String): Deferred<Response<JsonObject>>
+
     @DELETE("/api/admin/assign-teacher/{class_id} ")
     fun assignClassTeacherDeleteAsync(@Path("class_id")class_id:String): Deferred<Response<JsonObject>>
+
+    @DELETE("/api/class/{class_id}")
+    fun deleteClassAsync(@Path("class_id")class_id:String): Deferred<Response<JsonObject>>
 
     @POST("/api/class")
     fun createClassAsync(@Body param:HashMap<String,Any>): Deferred<Response<JsonObject>>

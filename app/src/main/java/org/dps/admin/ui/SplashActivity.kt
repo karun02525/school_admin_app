@@ -7,6 +7,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import org.dps.admin.MainActivity
 import org.dps.admin.R
+import org.dps.admin.ui.create.TestingDashboard
 import org.dps.admin.utils.startNewActivityFinish
 
 class SplashActivity : AppCompatActivity() {
@@ -21,7 +22,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         Handler().postDelayed({
-            startNewActivityFinish(MainActivity::class.java)
+            startNewActivityFinish(TestingDashboard::class.java)
         }, 100)
 
 

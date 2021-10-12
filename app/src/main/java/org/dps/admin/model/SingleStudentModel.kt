@@ -14,6 +14,8 @@ data class SingleStudentModel(
 data class SingleStudentModelData(
     @SerializedName("avatar")
     var avatar: String = "",
+    @SerializedName("mobile")
+    var mobile: String = "",
     @SerializedName("class_id")
     var classId: String? = "",
     @SerializedName("dob")

@@ -8,7 +8,7 @@
 
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:text="Class Name: "
+        android:text="Class Name     :  "
         android:layout_marginStart="@dimen/_5sdp"
         android:textColor="@color/black"
         android:textStyle="bold"
@@ -63,7 +63,7 @@
         />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:text="Teacher  : "
+        android:text="Teacher Name : "
         android:layout_marginStart="@dimen/_5sdp"
         android:textColor="@color/black"
         android:textStyle="bold"
@@ -89,9 +89,36 @@
         app:layout_constraintBottom_toTopOf="@+id/lableteacher"
         />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:text="Mobile No         : "
+        android:layout_marginStart="@dimen/_5sdp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:id="@+id/lableMob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTeachername"
+        />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:text="Status     : "
+        android:text="879868769898"
+        android:gravity="center"
+        android:id="@+id/tv_mob"
+        android:textStyle="bold"
+        android:textSize="@dimen/_10ssp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/lableMob"
+        app:layout_constraintTop_toBottomOf="@+id/lableMob"
+        app:layout_constraintBottom_toTopOf="@+id/lableMob"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:text="Status                : "
         android:layout_marginStart="@dimen/_5sdp"
         android:textColor="@color/black"
         android:textStyle="bold"
@@ -101,7 +128,7 @@
         android:gravity="center"
         android:textSize="@dimen/_12ssp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lableteacher"
+        app:layout_constraintTop_toBottomOf="@+id/lableMob"
         />
 
     <androidx.appcompat.widget.AppCompatTextView

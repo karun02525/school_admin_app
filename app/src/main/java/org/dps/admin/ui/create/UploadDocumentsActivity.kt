@@ -51,7 +51,8 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
         const val PERMISSION_GALLERY = 1
         var checkType = ""
 
-        const val fileKeyImage = "avatar"
+        const val fileKeyAvatar = "avatar"
+        const val fileKeyParentAvatar = "parent_avatar"
         const val fileKeyFront = "doc_front_avatar"
         const val fileKeyBack = "doc_back_avatar"
     }
@@ -80,62 +81,122 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
         uploadDocBackUrl = "$BASE_URL/api/admin/upload-document-back"
 
         tv_toolbar.text = "($source) Updates Profile & Documents"
-        tvProfileInfo.text = "1. Upload $source profile photo."
-        tvFront.text = "2. Upload $source document front photo."
-        tvBack.text = "3. Upload $source document back photo."
+        //  tvProfileInfo.text = "1. Upload $source profile photo."
+        // tvFront.text = "2. Upload $source document front photo."
+        // tvBack.text = "3. Upload $source document back photo."
 
 
         apiCall()
 
 
-        editPic.setOnClickListener {
-            checkType = "profile"
-            openGallery()
-        }
-        tvFrontSide.setOnClickListener {
-            checkType = "frontSide"
-            openGallery()
-        }
-        tvBackSide.setOnClickListener {
-            checkType = "backSide"
-            openGallery()
-        }
+
 
         btn_back.setOnClickListener { onBackPressed() }
 
 
-        btnDeleteProfile.setOnClickListener { showDialogDelete("Profile Photo", fileKeyImage) }
-        btnDeleteFront.setOnClickListener {
-            showDialogDelete(
-                "$documentName Front Document",
-                fileKeyFront
-            )
-        }
-        btnDeleteBack.setOnClickListener {
-            showDialogDelete(
-                "$documentName Back Document",
-                fileKeyBack
-            )
-        }
+        /* btnDeleteProfile.setOnClickListener { showDialogDelete("Profile Photo", fileKeyImage) }
+
+         btnDeleteFront.setOnClickListener {
+             showDialogDelete(
+                 "$documentName Front Document", fileKeyFront
+             )
+         }
+         btnDeleteBack.setOnClickListener {
+             showDialogDelete("$documentName Back Document", fileKeyBack)
+         }
 
 
 
-
+         */
 
         setupViewModel()
+
+
+        initProfileClick()
+        initDocumentsClick()
+
+
+    }
+
+    private fun initDocumentsClick() {
+
+        //Upload Documets
+        tvFrontSide1.setOnClickListener {
+            checkType = "front_side1"
+            openGallery()
+        }
+        tvBackSide1.setOnClickListener {
+            checkType = "back_side1"
+            openGallery()
+        }
+
+        tvFrontSide2.setOnClickListener {
+            checkType = "front_side2"
+            openGallery()
+        }
+        tvBackSide2.setOnClickListener {
+            checkType = "back_side2"
+            openGallery()
+        }
+
+
+        //Delete Documents
+        btnDeleteFront1.setOnClickListener {
+            showDialogDelete(
+                "$documentName Front Document", fileKeyFront
+            )
+        }
+
+        btnDeleteBack1.setOnClickListener {
+            showDialogDelete(
+                "$documentName Front Document", fileKeyFront
+            )
+        }
+
+
+        btnDeleteFront2.setOnClickListener {
+            showDialogDelete(
+                "$documentName Front Document", fileKeyFront
+            )
+        }
+
+        btnDeleteBack2.setOnClickListener {
+            showDialogDelete(
+                "$documentName Front Document", fileKeyFront
+            )
+        }
+
+
+    }
+
+
+    private fun initProfileClick() {
+
+        editPic1.setOnClickListener {
+            checkType = "user_profile"
+            openGallery()
+        }
+        editPic2.setOnClickListener {
+            checkType = "parent_profile"
+            openGallery()
+        }
+
+        //Delete Profile
+        btnDeleteProfile1.setOnClickListener {
+            showDialogDelete(
+                "$documentName Front Document", fileKeyFront
+            )
+        }
+        btnDeleteProfile2.setOnClickListener {
+            showDialogDelete("$documentName Back Document", fileKeyBack)
+        }
+
     }
 
     private fun apiCall() {
         hideShowProgress(true)
         if (source == "Student") {
             viewModel.getStudentById(id)
-        }
-        if (source == "Parent") {
-            viewModel.getParentById(id)
-            editPic.visibility = View.GONE
-            pic.visibility = View.GONE
-            labeleds.visibility = View.GONE
-            tvStatus.visibility = View.GONE
         }
         if (source == "Teacher") {
             viewModel.getTeacherById(id)
@@ -148,40 +209,17 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
             hideShowProgress(false)
             setUpBind(
                 it.fname + " " + it.lname,
-                "",
-                it.avatar,
-                it.docFrontAvatar,
-                it.docBackAvatar,
-                it.document
-            )
-        })
-
-        viewModel.singleParentData.observe(this, Observer {
-            hideShowProgress(false)
-            setUpBind(
-                it.fullname,
-                it.mobile,
-                "_",
-                it.docFrontAvatar,
-                it.docBackAvatar,
-                it.document
-            )
-        })
-
-        viewModel.singleTeacherData.observe(this, Observer {
-            hideShowProgress(false)
-            setUpBind(
-                it.fname + " " + it.lname,
                 it.mobile,
                 it.avatar,
                 it.docFrontAvatar,
                 it.docBackAvatar,
-                it.document
+                it.document,
+                "","","","",""
             )
         })
 
         viewModel.deteteFilesuccess.observe(this, Observer {
-            if(it !="") {
+            if (it != "") {
                 hideShowProgress(false)
                 log("deteteFilesuccess ********")
                 toast(it)
@@ -195,103 +233,145 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
         })
     }
 
-    private fun setUpBind(
-        name: String,
-        mob: String,
-        avatar: String,
-        frontDoc: String,
-        backDoc: String,
-        document: String
-    ) {
-        documentName = document
-        tvFront.text = "2. Upload $source $document front photo."
-        tvBack.text = "3. Upload $source $document back photo."
 
+    private fun setUpBind(name: String,
+                          mob: String,
+                          parent_name: String,
+                          status: String,
+                          avatar: String,
+                          parent_avatar: String,
+                          student_doc_front: String,
+                          student_doc_back: String,
+                          parent_doc_front: String,
+                          parent_doc_back: String,
+                          document: String) {
+        documentName = document
+        //  tvFront.text = "2. Upload $source $document front photo."
+        // tvBack.text = "3. Upload $source $document back photo."
 
         tvName.text = name
-        if (avatar =="_") {
-            editPic.visibility = View.GONE
-        }else if (avatar == "") {
-            tvStatus.text = "pending"
-            tvStatus.setTextColor(resources.getColor(R.color.red))
-            btnDeleteProfile.visibility = View.GONE
-            pic.setImageResource(R.drawable.profile_pic)
-            editPic.visibility = View.VISIBLE
+        tvMobile.text = mob
+        tv_parent_name.text = parent_name
+        tvStatus.text = status
+
+        //For User Avatar
+        Picasso.get()
+            .load("$BASE_URL/$avatar")
+            .into(iv_user_pic1, object : Callback {
+                override fun onSuccess() {
+                    editPic1.visibility = View.GONE
+                    btnDeleteProfile1.visibility = View.VISIBLE
+                }
+
+                override fun onError(e: Exception?) {
+                    editPic1.visibility = View.VISIBLE
+                    btnDeleteProfile1.visibility = View.GONE
+                    iv_user_pic1.setImageResource(R.drawable.profile_pic)
+                }
+            })
+
+
+        //For Parents
+        Picasso.get()
+            .load("$BASE_URL/$parent_avatar")
+            .into(iv_user_pic2, object : Callback {
+                override fun onSuccess() {
+                    editPic2.visibility = View.GONE
+                    btnDeleteProfile1.visibility = View.VISIBLE
+                }
+
+                override fun onError(e: Exception?) {
+                    editPic2.visibility = View.VISIBLE
+                    btnDeleteProfile1.visibility = View.GONE
+                    iv_user_pic2.setImageResource(R.drawable.profile_pic)
+                }
+            })
+
+
+
+        //For Students Documents
+        if (student_doc_front == "") {
+            tvFrontSide1.visibility = View.VISIBLE
+            btnDeleteFront1.visibility = View.GONE
+            ivFront1.setImageResource(R.drawable.ic_placeholder_front)
         } else {
             Picasso.get()
-                .load("$BASE_URL/$avatar")
-                .into(pic, object : Callback {
+                .load("$BASE_URL/$student_doc_front")
+                .into(ivFront1, object : Callback {
                     override fun onSuccess() {
-                        tvStatus.text = "active"
-                        tvStatus.setTextColor(resources.getColor(R.color.doc_color))
-                        editPic.visibility = View.GONE
-                        btnDeleteProfile.visibility = View.VISIBLE
-
+                        btnDeleteFront1.visibility = View.VISIBLE
+                        tvFrontSide1.visibility = View.GONE
                     }
 
                     override fun onError(e: Exception?) {
-                        editPic.visibility = View.VISIBLE
-                        btnDeleteProfile.visibility = View.GONE
-                        tvStatus.text = "pending"
-                        tvStatus.setTextColor(resources.getColor(R.color.red))
-                        pic.setImageResource(R.drawable.profile_pic)
+                        btnDeleteFront1.visibility = View.GONE
+                        ivFront1.setImageResource(R.drawable.ic_placeholder_front)
+                        tvFrontSide1.visibility = View.VISIBLE
+                    }
+                })
+        }
+        //For Student Back
+        if (student_doc_back == "") {
+            tvBackSide1.visibility = View.VISIBLE
+            btnDeleteBack1.visibility = View.GONE
+            ivBack1.setImageResource(R.drawable.ic_placeholder_front)
+        } else {
+            Picasso.get()
+                .load("$BASE_URL/$student_doc_back")
+                .into(ivBack1, object : Callback {
+                    override fun onSuccess() {
+                        btnDeleteBack1.visibility = View.VISIBLE
+                        tvBackSide1.visibility = View.GONE
+                    }
+                    override fun onError(e: Exception?) {
+                        btnDeleteBack1.visibility = View.GONE
+                        ivBack1.setImageResource(R.drawable.ic_placeholder_front)
+                        tvBackSide1.visibility = View.VISIBLE
                     }
                 })
         }
 
-        if (mob != "") {
-            tvMobile.text = mob
-            tvMobile.visibility = View.VISIBLE
-            labeledm.visibility = View.VISIBLE
-        } else {
-            tvMobile.visibility = View.GONE
-            labeledm.visibility = View.GONE
-        }
-
-        if (frontDoc == "") {
-            tvFrontSide.visibility = View.VISIBLE
-            btnDeleteFront.visibility = View.GONE
-            ivFront.setImageResource(R.drawable.ic_placeholder_front)
+        //For Parent Front
+        if (parent_doc_front == "") {
+            tvFrontSide2.visibility = View.VISIBLE
+            btnDeleteFront2.visibility = View.GONE
+            ivFront2.setImageResource(R.drawable.ic_placeholder_front)
         } else {
             Picasso.get()
-                .load("$BASE_URL/$frontDoc")
-                .into(ivFront, object : Callback {
+                .load("$BASE_URL/$parent_doc_front")
+                .into(ivFront2, object : Callback {
                     override fun onSuccess() {
-                        btnDeleteFront.visibility = View.VISIBLE
-                        tvFrontSide.visibility = View.GONE
+                        btnDeleteFront2.visibility = View.VISIBLE
+                        tvFrontSide2.visibility = View.GONE
                     }
-
                     override fun onError(e: Exception?) {
-                        btnDeleteFront.visibility = View.GONE
-                        ivFront.setImageResource(R.drawable.ic_placeholder_front)
-                        tvFrontSide.visibility = View.VISIBLE
+                        btnDeleteFront2.visibility = View.GONE
+                        ivFront2.setImageResource(R.drawable.ic_placeholder_front)
+                        tvFrontSide2.visibility = View.VISIBLE
                     }
                 })
         }
 
-        if (backDoc == "") {
-            tvBackSide.visibility = View.VISIBLE
-            btnDeleteBack.visibility = View.GONE
-            ivBack.setImageResource(R.drawable.ic_placeholder_back)
-
+        //For Parent Back
+        if (parent_doc_back == "") {
+            tvBackSide2.visibility = View.VISIBLE
+            btnDeleteBack2.visibility = View.GONE
+            ivBack2.setImageResource(R.drawable.ic_placeholder_front)
         } else {
             Picasso.get()
-                .load("$BASE_URL/$backDoc")
-                .into(ivBack, object : Callback {
+                .load("$BASE_URL/$parent_doc_back")
+                .into(ivBack2, object : Callback {
                     override fun onSuccess() {
-                        tvBackSide.visibility = View.GONE
-                        btnDeleteBack.visibility = View.VISIBLE
+                        btnDeleteBack2.visibility = View.VISIBLE
+                        tvBackSide2.visibility = View.GONE
                     }
-
                     override fun onError(e: Exception?) {
-                        btnDeleteBack.visibility = View.GONE
-                        ivBack.setImageResource(R.drawable.ic_placeholder_back)
-                        tvBackSide.visibility = View.VISIBLE
+                        btnDeleteBack2.visibility = View.GONE
+                        ivBack2.setImageResource(R.drawable.ic_placeholder_front)
+                        tvBackSide2.visibility = View.VISIBLE
                     }
                 })
         }
-
-
     }
 
     private fun showDialogDelete(title: String, fileKeySource: String) {
@@ -348,13 +428,19 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
             if (resultCode == RESULT_OK) {
                 val result = CropImage.getActivityResult(data)
                 val resultPath: String? = result?.uri?.path
-                if (checkType == "profile") {
-                    Glide.with(this).load(resultPath).into(pic)
+                if (checkType == "user_profile") {
+                    Glide.with(this).load(resultPath).into(iv_user_pic1)
                     uploadImage(uploadImageUrl, resultPath!!, id, source.lowercase())
                 }
-                if (checkType == "frontSide") {
-                    tvFrontSide.visibility = View.GONE
-                    Glide.with(this).load(resultPath).into(ivFront)
+                if (checkType == "parent_profile") {
+                    Glide.with(this).load(resultPath).into(iv_user_pic2)
+                    uploadImage(uploadImageUrl, resultPath!!, id, source.lowercase())
+                }
+
+
+                if (checkType == "front_side1") {
+                    tvFrontSide1.visibility = View.GONE
+                    Glide.with(this).load(resultPath).into(ivFront1)
                     uploadImageDoc(
                         uploadDocFrontUrl,
                         resultPath!!,
@@ -363,9 +449,32 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
                         fileKeyFront
                     )
                 }
-                if (checkType == "backSide") {
-                    tvBackSide.visibility = View.GONE
-                    Glide.with(this).load(resultPath).into(ivBack)
+                if (checkType == "back_side1") {
+                    tvBackSide1.visibility = View.GONE
+                    Glide.with(this).load(resultPath).into(ivBack1)
+                    uploadImageDoc(
+                        uploadDocBackUrl,
+                        resultPath!!,
+                        id,
+                        source.lowercase(),
+                        fileKeyBack
+                    )
+                }
+
+                if (checkType == "front_side2") {
+                    tvFrontSide2.visibility = View.GONE
+                    Glide.with(this).load(resultPath).into(ivFront2)
+                    uploadImageDoc(
+                        uploadDocFrontUrl,
+                        resultPath!!,
+                        id,
+                        source.lowercase(),
+                        fileKeyFront
+                    )
+                }
+                if (checkType == "back_side2") {
+                    tvBackSide2.visibility = View.GONE
+                    Glide.with(this).load(resultPath).into(ivBack2)
                     uploadImageDoc(
                         uploadDocBackUrl,
                         resultPath!!,
@@ -399,7 +508,7 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
             uploadReceiver.setUploadID(uploadId)
 
             MultipartUploadRequest(applicationContext, uploadId, url)
-                .addFileToUpload(imagePath, fileKeyImage)
+                .addFileToUpload(imagePath, fileKeyAvatar)
                 .addParameter("id", id)
                 .addParameter("type", type)
                 // .addHeader("Authorization", "")

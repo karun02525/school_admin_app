@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upload_documents)
 
-        findViewById<View>(R.id.pic).setOnClickListener {
+        findViewById<View>(R.id.iv_user_pic1).setOnClickListener {
             pickFile()
         }
     }

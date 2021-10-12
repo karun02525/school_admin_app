@@ -36,7 +36,7 @@ class ShowStudentActivity : AppCompatActivity() {
 
         btnSubmit.setOnClickListener {
             hideShowProgress(true)
-            viewModel.getStudentDataAsync(class_id)
+          //  viewModel.getStudentDataAsync(class_id)
         }
 
 
