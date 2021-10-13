@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
@@ -62,6 +63,8 @@ fun AppCompatActivity.startNewActivityFinish(cls: Class<*>) {
     this.startActivity(Intent(this, cls))
     finish()
 }
+
+fun ImageView.showPhoto(path:String) = Glide.with(this).load(path).into(this)
 
 
 class ImageFactory : CarouselImageFactory {

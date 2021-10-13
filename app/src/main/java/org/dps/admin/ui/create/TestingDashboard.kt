@@ -36,8 +36,7 @@ class TestingDashboard : AppCompatActivity() {
 
         btnStudent.setOnClickListener {
            startActivity(Intent(baseContext,UploadDocumentsActivity::class.java)
-               .putExtra("source","Student")
-               .putExtra("id","615c2af2b84ff4fec1c4a862")
+               .putExtra("id","6165fbee8314577e9ddf75bd")
            )
         }
         btnParent.setOnClickListener {

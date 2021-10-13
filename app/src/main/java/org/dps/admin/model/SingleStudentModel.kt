@@ -6,41 +6,78 @@ data class SingleStudentModel(
     @SerializedName("data")
     var `data`: SingleStudentModelData,
     @SerializedName("message")
-    var message: String? = "",
+    var message: String,
     @SerializedName("status")
-    var status: Boolean? = false
+    var status: Boolean
 )
 
 data class SingleStudentModelData(
     @SerializedName("avatar")
-    var avatar: String = "",
-    @SerializedName("mobile")
-    var mobile: String = "",
+    var avatar: String,
     @SerializedName("class_id")
-    var classId: String? = "",
+    var classId: String,
+    @SerializedName("createdAt")
+    var createdAt: String,
+    @SerializedName("distc")
+    var distc: String,
     @SerializedName("dob")
-    var dob: String? = "",
-    @SerializedName("doc_back_avatar")
-    var docBackAvatar: String = "",
-    @SerializedName("doc_front_avatar")
-    var docFrontAvatar: String = "",
+    var dob: String,
     @SerializedName("doc_id")
-    var docId: String? = "",
+    var docId: String,
     @SerializedName("document")
-    var document: String = "",
+    var document: String,
+    @SerializedName("email")
+    var email: String,
+    @SerializedName("father_name")
+    var fatherName: String,
+    @SerializedName("father_occupation")
+    var fatherOccupation: String,
+    @SerializedName("father_qualification")
+    var fatherQualification: String,
+    @SerializedName("father_title")
+    var fatherTitle: String,
     @SerializedName("fname")
-    var fname: String? = "",
+    var fname: String,
     @SerializedName("gender")
-    var gender: String? = "",
+    var gender: String,
     @SerializedName("_id")
-    var id: String? = "",
+    var id: String,
     @SerializedName("lname")
-    var lname: String? = "",
-    @SerializedName("parent")
-    var parent: String? = "",
+    var lname: String,
+    @SerializedName("mobile")
+    var mobile: String,
+    @SerializedName("mother_name")
+    var motherName: String,
+    @SerializedName("mother_occupation")
+    var motherOccupation: String,
+    @SerializedName("mother_qualification")
+    var motherQualification: String,
+    @SerializedName("mother_title")
+    var motherTitle: String,
+    @SerializedName("parent_avatar")
+    var parentAvatar: String,
+    @SerializedName("parent_doc_back")
+    var parentDocBack: String,
+    @SerializedName("parent_doc_front")
+    var parentDocFront: String,
+    @SerializedName("parent_doc_id")
+    var parentDocId: String,
+    @SerializedName("parent_document")
+    var parentDocument: String,
+    @SerializedName("pincode")
+    var pincode: String,
+    @SerializedName("post_office")
+    var postOffice: String,
     @SerializedName("qualification")
-    var qualification: String? = "",
+    var qualification: String,
     @SerializedName("rollno")
-    var rollno: Int? = 0,
-
+    var rollno: Int,
+    @SerializedName("state")
+    var state: String,
+    @SerializedName("student_doc_back")
+    var studentDocBack: String,
+    @SerializedName("student_doc_front")
+    var studentDocFront: String,
+    @SerializedName("updatedAt")
+    var updatedAt: String,
 )

@@ -32,10 +32,12 @@ import net.gotev.uploadservice.UploadNotificationConfig
 import net.gotev.uploadservice.UploadService
 import org.dps.admin.BuildConfig
 import org.dps.admin.R
+import org.dps.admin.model.SingleStudentModelData
 import org.dps.admin.mvvm.AssignClassTeacherViewModel
 import org.dps.admin.network.Const.BASE_URL
 import org.dps.admin.utils.SingleUploadBroadcastReceiver
 import org.dps.admin.utils.log
+import org.dps.admin.utils.showPhoto
 import org.dps.admin.utils.toast
 import org.json.JSONException
 import org.json.JSONObject
@@ -51,70 +53,36 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
         const val PERMISSION_GALLERY = 1
         var checkType = ""
 
-        const val fileKeyAvatar = "avatar"
-        const val fileKeyParentAvatar = "parent_avatar"
-        const val fileKeyFront = "doc_front_avatar"
-        const val fileKeyBack = "doc_back_avatar"
+        const val avatar = "avatar"
+        const val studentDocFront = "student_doc_front"
+        const val studentDocBack = "student_doc_back"
+        const val parentAvatar = "parent_avatar"
+        const val parentDocFront = "parent_doc_front"
+        const val parentDocBack = "parent_doc_back"
     }
 
+
     private val uploadReceiver = SingleUploadBroadcastReceiver()
-    private var source = ""
     private var id = ""
     var progress: ProgressDialog? = null
-    private var uploadImageUrl = ""
-    private var uploadDocFrontUrl = ""
-    private var uploadDocBackUrl = ""
+    private var urlStudent = ""
     private var documentName = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upload_documents)
-
-        source = intent.getStringExtra("source") ?: ""
         id = intent.getStringExtra("id") ?: ""
 
 
         UploadService.NAMESPACE = BuildConfig.APPLICATION_ID
         UploadService.NAMESPACE = "org.dps.admin"
 
-        uploadImageUrl = "$BASE_URL/api/admin/upload-profile-pic"
-        uploadDocFrontUrl = "$BASE_URL/api/admin/upload-document-front"
-        uploadDocBackUrl = "$BASE_URL/api/admin/upload-document-back"
-
-        tv_toolbar.text = "($source) Updates Profile & Documents"
-        //  tvProfileInfo.text = "1. Upload $source profile photo."
-        // tvFront.text = "2. Upload $source document front photo."
-        // tvBack.text = "3. Upload $source document back photo."
-
-
-        apiCall()
-
-
-
-
+        urlStudent = "$BASE_URL/api/admin/upload-student-files"
+        tv_toolbar.text = "Updates Profile & Documents"
         btn_back.setOnClickListener { onBackPressed() }
-
-
-        /* btnDeleteProfile.setOnClickListener { showDialogDelete("Profile Photo", fileKeyImage) }
-
-         btnDeleteFront.setOnClickListener {
-             showDialogDelete(
-                 "$documentName Front Document", fileKeyFront
-             )
-         }
-         btnDeleteBack.setOnClickListener {
-             showDialogDelete("$documentName Back Document", fileKeyBack)
-         }
-
-
-
-         */
-
         setupViewModel()
-
-
         initProfileClick()
         initDocumentsClick()
-
+        apiCall()
 
     }
 
@@ -140,7 +108,7 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
         }
 
 
-        //Delete Documents
+      /*  //Delete Documents
         btnDeleteFront1.setOnClickListener {
             showDialogDelete(
                 "$documentName Front Document", fileKeyFront
@@ -164,7 +132,7 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
             showDialogDelete(
                 "$documentName Front Document", fileKeyFront
             )
-        }
+        }*/
 
 
     }
@@ -184,38 +152,25 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
         //Delete Profile
         btnDeleteProfile1.setOnClickListener {
             showDialogDelete(
-                "$documentName Front Document", fileKeyFront
+                "$documentName Front Document", avatar
             )
         }
         btnDeleteProfile2.setOnClickListener {
-            showDialogDelete("$documentName Back Document", fileKeyBack)
+            showDialogDelete("$documentName Back Document", parentAvatar)
         }
 
     }
 
     private fun apiCall() {
         hideShowProgress(true)
-        if (source == "Student") {
-            viewModel.getStudentById(id)
-        }
-        if (source == "Teacher") {
-            viewModel.getTeacherById(id)
-        }
+        viewModel.getStudentById(id)
     }
 
 
     private fun setupViewModel() {
         viewModel.singleStudentData.observe(this, Observer {
             hideShowProgress(false)
-            setUpBind(
-                it.fname + " " + it.lname,
-                it.mobile,
-                it.avatar,
-                it.docFrontAvatar,
-                it.docBackAvatar,
-                it.document,
-                "","","","",""
-            )
+            dataParse(it)
         })
 
         viewModel.deteteFilesuccess.observe(this, Observer {
@@ -233,144 +188,141 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
         })
     }
 
+    private fun dataParse(it: SingleStudentModelData){
 
-    private fun setUpBind(name: String,
-                          mob: String,
-                          parent_name: String,
-                          status: String,
-                          avatar: String,
-                          parent_avatar: String,
-                          student_doc_front: String,
-                          student_doc_back: String,
-                          parent_doc_front: String,
-                          parent_doc_back: String,
-                          document: String) {
-        documentName = document
-        //  tvFront.text = "2. Upload $source $document front photo."
-        // tvBack.text = "3. Upload $source $document back photo."
+        it.run {
+            documentName = document
+            tv_title2.text = "2. Upload student $document front photo."
+            tv_title3.text = "3. Upload student $document back photo."
+            tv_title4.text = "4. Upload parent $parentDocument front photo."
+            tv_title5.text = "5. Upload parent $parentDocument back photo."
 
-        tvName.text = name
-        tvMobile.text = mob
-        tv_parent_name.text = parent_name
-        tvStatus.text = status
+            tvName.text = "$fname $lname"
+            tvMobile.text = mobile
+            tv_father_name.text = "$fatherTitle $fatherName"
+            tv_mother_name.text = "$motherTitle $motherName"
+            tvStatus.text = "pending"
 
-        //For User Avatar
-        Picasso.get()
-            .load("$BASE_URL/$avatar")
-            .into(iv_user_pic1, object : Callback {
-                override fun onSuccess() {
-                    editPic1.visibility = View.GONE
-                    btnDeleteProfile1.visibility = View.VISIBLE
-                }
-
-                override fun onError(e: Exception?) {
-                    editPic1.visibility = View.VISIBLE
-                    btnDeleteProfile1.visibility = View.GONE
-                    iv_user_pic1.setImageResource(R.drawable.profile_pic)
-                }
-            })
-
-
-        //For Parents
-        Picasso.get()
-            .load("$BASE_URL/$parent_avatar")
-            .into(iv_user_pic2, object : Callback {
-                override fun onSuccess() {
-                    editPic2.visibility = View.GONE
-                    btnDeleteProfile1.visibility = View.VISIBLE
-                }
-
-                override fun onError(e: Exception?) {
-                    editPic2.visibility = View.VISIBLE
-                    btnDeleteProfile1.visibility = View.GONE
-                    iv_user_pic2.setImageResource(R.drawable.profile_pic)
-                }
-            })
-
-
-
-        //For Students Documents
-        if (student_doc_front == "") {
-            tvFrontSide1.visibility = View.VISIBLE
-            btnDeleteFront1.visibility = View.GONE
-            ivFront1.setImageResource(R.drawable.ic_placeholder_front)
-        } else {
+            //For User Avatar
             Picasso.get()
-                .load("$BASE_URL/$student_doc_front")
-                .into(ivFront1, object : Callback {
+                .load("$BASE_URL/$avatar")
+                .into(iv_user_pic1, object : Callback {
                     override fun onSuccess() {
-                        btnDeleteFront1.visibility = View.VISIBLE
-                        tvFrontSide1.visibility = View.GONE
+                        editPic1.visibility = View.GONE
+                        btnDeleteProfile1.visibility = View.VISIBLE
                     }
 
                     override fun onError(e: Exception?) {
-                        btnDeleteFront1.visibility = View.GONE
-                        ivFront1.setImageResource(R.drawable.ic_placeholder_front)
-                        tvFrontSide1.visibility = View.VISIBLE
+                        editPic1.visibility = View.VISIBLE
+                        btnDeleteProfile1.visibility = View.GONE
+                        iv_user_pic1.setImageResource(R.drawable.profile_pic)
                     }
                 })
-        }
-        //For Student Back
-        if (student_doc_back == "") {
-            tvBackSide1.visibility = View.VISIBLE
-            btnDeleteBack1.visibility = View.GONE
-            ivBack1.setImageResource(R.drawable.ic_placeholder_front)
-        } else {
-            Picasso.get()
-                .load("$BASE_URL/$student_doc_back")
-                .into(ivBack1, object : Callback {
-                    override fun onSuccess() {
-                        btnDeleteBack1.visibility = View.VISIBLE
-                        tvBackSide1.visibility = View.GONE
-                    }
-                    override fun onError(e: Exception?) {
-                        btnDeleteBack1.visibility = View.GONE
-                        ivBack1.setImageResource(R.drawable.ic_placeholder_front)
-                        tvBackSide1.visibility = View.VISIBLE
-                    }
-                })
-        }
 
-        //For Parent Front
-        if (parent_doc_front == "") {
-            tvFrontSide2.visibility = View.VISIBLE
-            btnDeleteFront2.visibility = View.GONE
-            ivFront2.setImageResource(R.drawable.ic_placeholder_front)
-        } else {
-            Picasso.get()
-                .load("$BASE_URL/$parent_doc_front")
-                .into(ivFront2, object : Callback {
-                    override fun onSuccess() {
-                        btnDeleteFront2.visibility = View.VISIBLE
-                        tvFrontSide2.visibility = View.GONE
-                    }
-                    override fun onError(e: Exception?) {
-                        btnDeleteFront2.visibility = View.GONE
-                        ivFront2.setImageResource(R.drawable.ic_placeholder_front)
-                        tvFrontSide2.visibility = View.VISIBLE
-                    }
-                })
-        }
 
-        //For Parent Back
-        if (parent_doc_back == "") {
-            tvBackSide2.visibility = View.VISIBLE
-            btnDeleteBack2.visibility = View.GONE
-            ivBack2.setImageResource(R.drawable.ic_placeholder_front)
-        } else {
+            //For Parents
             Picasso.get()
-                .load("$BASE_URL/$parent_doc_back")
-                .into(ivBack2, object : Callback {
+                .load("$BASE_URL/$parentAvatar")
+                .into(iv_user_pic2, object : Callback {
                     override fun onSuccess() {
-                        btnDeleteBack2.visibility = View.VISIBLE
-                        tvBackSide2.visibility = View.GONE
+                        editPic2.visibility = View.GONE
+                        btnDeleteProfile1.visibility = View.VISIBLE
                     }
+
                     override fun onError(e: Exception?) {
-                        btnDeleteBack2.visibility = View.GONE
-                        ivBack2.setImageResource(R.drawable.ic_placeholder_front)
-                        tvBackSide2.visibility = View.VISIBLE
+                        editPic2.visibility = View.VISIBLE
+                        btnDeleteProfile1.visibility = View.GONE
+                        iv_user_pic2.setImageResource(R.drawable.profile_pic)
                     }
                 })
+
+
+            //For Students Documents
+            if (studentDocFront == "") {
+                tvFrontSide1.visibility = View.VISIBLE
+                btnDeleteFront1.visibility = View.GONE
+                ivFront1.setImageResource(R.drawable.ic_placeholder_front)
+            } else {
+                Picasso.get()
+                    .load("$BASE_URL/$studentDocFront")
+                    .into(ivFront1, object : Callback {
+                        override fun onSuccess() {
+                            btnDeleteFront1.visibility = View.VISIBLE
+                            tvFrontSide1.visibility = View.GONE
+                        }
+
+                        override fun onError(e: Exception?) {
+                            btnDeleteFront1.visibility = View.GONE
+                            ivFront1.setImageResource(R.drawable.ic_placeholder_front)
+                            tvFrontSide1.visibility = View.VISIBLE
+                        }
+                    })
+            }
+            //For Student Back
+            if (studentDocBack == "") {
+                tvBackSide1.visibility = View.VISIBLE
+                btnDeleteBack1.visibility = View.GONE
+                ivBack1.setImageResource(R.drawable.ic_placeholder_front)
+            } else {
+                Picasso.get()
+                    .load("$BASE_URL/$studentDocBack")
+                    .into(ivBack1, object : Callback {
+                        override fun onSuccess() {
+                            btnDeleteBack1.visibility = View.VISIBLE
+                            tvBackSide1.visibility = View.GONE
+                        }
+
+                        override fun onError(e: Exception?) {
+                            btnDeleteBack1.visibility = View.GONE
+                            ivBack1.setImageResource(R.drawable.ic_placeholder_front)
+                            tvBackSide1.visibility = View.VISIBLE
+                        }
+                    })
+            }
+
+            //For Parent Front
+            if (parentDocFront == "") {
+                tvFrontSide2.visibility = View.VISIBLE
+                btnDeleteFront2.visibility = View.GONE
+                ivFront2.setImageResource(R.drawable.ic_placeholder_front)
+            } else {
+                Picasso.get()
+                    .load("$BASE_URL/$parentDocFront")
+                    .into(ivFront2, object : Callback {
+                        override fun onSuccess() {
+                            btnDeleteFront2.visibility = View.VISIBLE
+                            tvFrontSide2.visibility = View.GONE
+                        }
+
+                        override fun onError(e: Exception?) {
+                            btnDeleteFront2.visibility = View.GONE
+                            ivFront2.setImageResource(R.drawable.ic_placeholder_front)
+                            tvFrontSide2.visibility = View.VISIBLE
+                        }
+                    })
+            }
+
+            //For Parent Back
+            if (parentDocBack == "") {
+                tvBackSide2.visibility = View.VISIBLE
+                btnDeleteBack2.visibility = View.GONE
+                ivBack2.setImageResource(R.drawable.ic_placeholder_front)
+            } else {
+                Picasso.get()
+                    .load("$BASE_URL/$parentDocBack")
+                    .into(ivBack2, object : Callback {
+                        override fun onSuccess() {
+                            btnDeleteBack2.visibility = View.VISIBLE
+                            tvBackSide2.visibility = View.GONE
+                        }
+
+                        override fun onError(e: Exception?) {
+                            btnDeleteBack2.visibility = View.GONE
+                            ivBack2.setImageResource(R.drawable.ic_placeholder_front)
+                            tvBackSide2.visibility = View.VISIBLE
+                        }
+                    })
+            }
         }
     }
 
@@ -394,7 +346,7 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
         dialog.btnYes.setOnClickListener {
             mDialog.dismiss()
             hideShowProgress(true)
-            viewModel.deleteUploadFile(id, source.lowercase(Locale.getDefault()), fileKeySource)
+            viewModel.deleteUploadFile(id, "student", fileKeySource)
         }
 
     }
@@ -427,63 +379,36 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 val result = CropImage.getActivityResult(data)
-                val resultPath: String? = result?.uri?.path
+                val resultPath: String = result?.uri?.path?:""
                 if (checkType == "user_profile") {
-                    Glide.with(this).load(resultPath).into(iv_user_pic1)
-                    uploadImage(uploadImageUrl, resultPath!!, id, source.lowercase())
+                    iv_user_pic1.showPhoto(resultPath)
+                    uploadImage(resultPath, avatar)
                 }
                 if (checkType == "parent_profile") {
-                    Glide.with(this).load(resultPath).into(iv_user_pic2)
-                    uploadImage(uploadImageUrl, resultPath!!, id, source.lowercase())
+                    iv_user_pic2.showPhoto(resultPath)
+                    uploadImage(resultPath, parentAvatar)
                 }
-
-
                 if (checkType == "front_side1") {
                     tvFrontSide1.visibility = View.GONE
-                    Glide.with(this).load(resultPath).into(ivFront1)
-                    uploadImageDoc(
-                        uploadDocFrontUrl,
-                        resultPath!!,
-                        id,
-                        source.lowercase(),
-                        fileKeyFront
-                    )
+                    ivFront1.showPhoto(resultPath)
+                    uploadImage(resultPath, studentDocFront)
                 }
                 if (checkType == "back_side1") {
                     tvBackSide1.visibility = View.GONE
-                    Glide.with(this).load(resultPath).into(ivBack1)
-                    uploadImageDoc(
-                        uploadDocBackUrl,
-                        resultPath!!,
-                        id,
-                        source.lowercase(),
-                        fileKeyBack
-                    )
+                    ivBack1.showPhoto(resultPath)
+                    uploadImage(resultPath, studentDocBack)
                 }
 
                 if (checkType == "front_side2") {
                     tvFrontSide2.visibility = View.GONE
-                    Glide.with(this).load(resultPath).into(ivFront2)
-                    uploadImageDoc(
-                        uploadDocFrontUrl,
-                        resultPath!!,
-                        id,
-                        source.lowercase(),
-                        fileKeyFront
-                    )
+                    ivFront2.showPhoto(resultPath)
+                    uploadImage(resultPath, parentDocFront)
                 }
                 if (checkType == "back_side2") {
                     tvBackSide2.visibility = View.GONE
-                    Glide.with(this).load(resultPath).into(ivBack2)
-                    uploadImageDoc(
-                        uploadDocBackUrl,
-                        resultPath!!,
-                        id,
-                        source.lowercase(),
-                        fileKeyBack
-                    )
+                    ivBack2.showPhoto(resultPath)
+                    uploadImage(resultPath, parentDocBack)
                 }
-
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 // val error: Exception = result.error
                 toast("Uploading photo failed! Please try again later.")
@@ -497,7 +422,7 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
     }
 
 
-    private fun uploadImage(url: String, imagePath: String, id: String, type: String) {
+    private fun uploadImage(imagePath: String, filekey: String) {
         progress = ProgressDialog(this);
         progress?.setMessage(resources.getString(R.string.pleaseWait))
         progress?.setCancelable(true)
@@ -507,39 +432,9 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
             uploadReceiver.setDelegate(this)
             uploadReceiver.setUploadID(uploadId)
 
-            MultipartUploadRequest(applicationContext, uploadId, url)
-                .addFileToUpload(imagePath, fileKeyAvatar)
+            MultipartUploadRequest(applicationContext, uploadId, urlStudent)
+                .addFileToUpload(imagePath, filekey)
                 .addParameter("id", id)
-                .addParameter("type", type)
-                // .addHeader("Authorization", "")
-                .setNotificationConfig(UploadNotificationConfig())
-                .setMaxRetries(2)
-                .setDelegate(uploadReceiver)
-                .startUpload()
-        } catch (exc: Exception) {
-            println("exc----- $exc")
-        }
-    }
-
-    private fun uploadImageDoc(
-        url: String,
-        imagePath: String,
-        id: String,
-        type: String,
-        param: String
-    ) {
-        progress = ProgressDialog(this);
-        progress?.setMessage(resources.getString(R.string.pleaseWait))
-        progress?.setCancelable(true)
-        progress?.show()
-        try {
-            val uploadId = UUID.randomUUID().toString()
-            uploadReceiver.setDelegate(this)
-            uploadReceiver.setUploadID(uploadId)
-            MultipartUploadRequest(applicationContext, uploadId, url)
-                .addFileToUpload(imagePath, param)
-                .addParameter("id", id)
-                .addParameter("type", type)
                 // .addHeader("Authorization", "")
                 .setNotificationConfig(UploadNotificationConfig())
                 .setMaxRetries(2)
