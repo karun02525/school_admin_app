@@ -53,7 +53,7 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
         const val PERMISSION_GALLERY = 1
         var checkType = ""
 
-        const val avatar = "avatar"
+        const val avatar = "student_avatar"
         const val studentDocFront = "student_doc_front"
         const val studentDocBack = "student_doc_back"
         const val parentAvatar = "parent_avatar"
@@ -108,31 +108,31 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
         }
 
 
-      /*  //Delete Documents
+        //Delete Documents
         btnDeleteFront1.setOnClickListener {
             showDialogDelete(
-                "$documentName Front Document", fileKeyFront
+                "Student $documentName front document", studentDocFront
             )
         }
 
         btnDeleteBack1.setOnClickListener {
             showDialogDelete(
-                "$documentName Front Document", fileKeyFront
+                "Student $documentName back document", studentDocBack
             )
         }
 
 
         btnDeleteFront2.setOnClickListener {
             showDialogDelete(
-                "$documentName Front Document", fileKeyFront
+                "Parent $documentName front document", parentDocFront
             )
         }
 
         btnDeleteBack2.setOnClickListener {
             showDialogDelete(
-                "$documentName Front Document", fileKeyFront
+                "Parent $documentName back document", parentDocBack
             )
-        }*/
+        }
 
 
     }
@@ -152,11 +152,11 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
         //Delete Profile
         btnDeleteProfile1.setOnClickListener {
             showDialogDelete(
-                "$documentName Front Document", avatar
+                "Student Photo", avatar
             )
         }
         btnDeleteProfile2.setOnClickListener {
-            showDialogDelete("$documentName Back Document", parentAvatar)
+            showDialogDelete("Parent Photo", parentAvatar)
         }
 
     }
@@ -176,7 +176,6 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
         viewModel.deteteFilesuccess.observe(this, Observer {
             if (it != "") {
                 hideShowProgress(false)
-                log("deteteFilesuccess ********")
                 toast(it)
                 apiCall()
             }
@@ -205,7 +204,7 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
 
             //For User Avatar
             Picasso.get()
-                .load("$BASE_URL/$avatar")
+                .load("$BASE_URL/$student_avatar")
                 .into(iv_user_pic1, object : Callback {
                     override fun onSuccess() {
                         editPic1.visibility = View.GONE
@@ -214,7 +213,7 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
 
                     override fun onError(e: Exception?) {
                         editPic1.visibility = View.VISIBLE
-                        btnDeleteProfile1.visibility = View.GONE
+                        btnDeleteProfile1.visibility = View.INVISIBLE
                         iv_user_pic1.setImageResource(R.drawable.profile_pic)
                     }
                 })
@@ -226,12 +225,12 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
                 .into(iv_user_pic2, object : Callback {
                     override fun onSuccess() {
                         editPic2.visibility = View.GONE
-                        btnDeleteProfile1.visibility = View.VISIBLE
+                        btnDeleteProfile2.visibility = View.VISIBLE
                     }
 
                     override fun onError(e: Exception?) {
                         editPic2.visibility = View.VISIBLE
-                        btnDeleteProfile1.visibility = View.GONE
+                        btnDeleteProfile2.visibility = View.INVISIBLE
                         iv_user_pic2.setImageResource(R.drawable.profile_pic)
                     }
                 })

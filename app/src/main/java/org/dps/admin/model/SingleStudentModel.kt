@@ -12,8 +12,6 @@ data class SingleStudentModel(
 )
 
 data class SingleStudentModelData(
-    @SerializedName("avatar")
-    var avatar: String,
     @SerializedName("class_id")
     var classId: String,
     @SerializedName("createdAt")
@@ -38,6 +36,8 @@ data class SingleStudentModelData(
     var fatherTitle: String,
     @SerializedName("fname")
     var fname: String,
+    @SerializedName("student_avatar")
+    var student_avatar: String,
     @SerializedName("gender")
     var gender: String,
     @SerializedName("_id")
