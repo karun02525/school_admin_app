@@ -1,4 +1,5 @@
 package org.dps.admin.model
+
 import com.google.gson.annotations.SerializedName
 
 
@@ -14,14 +15,18 @@ data class SingleTeacherModel(
 data class SingleTeacherModelData(
     @SerializedName("address")
     var address: String? = "",
-    @SerializedName("avatar")
-    var avatar: String = "",
+    @SerializedName("teacher_avatar")
+    var teacherAvatar: String = "",
     @SerializedName("dob")
     var dob: String? = "",
-    @SerializedName("doc_back_avatar")
-    var docBackAvatar: String = "",
-    @SerializedName("doc_front_avatar")
-    var docFrontAvatar: String = "",
+    @SerializedName("teacher_doc_front")
+    var teacherDocFront: String = "",
+    @SerializedName("teacher_doc_back")
+    var teacherDocBack: String = "",
+    @SerializedName("certificate_doc_front")
+    var certificateDocFront: String = "",
+    @SerializedName("certificate_doc_back")
+    var certificateDocBack: String = "",
     @SerializedName("doc_id")
     var docId: String? = "",
     @SerializedName("document")

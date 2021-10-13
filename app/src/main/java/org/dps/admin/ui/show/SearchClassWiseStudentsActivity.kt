@@ -12,18 +12,19 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_show_class_wise_students.*
+import kotlinx.android.synthetic.main.activity_search_class_wise_students.*
 import kotlinx.android.synthetic.main.adapter_show_students.view.*
 import kotlinx.android.synthetic.main.custom_toolbar.*
 import org.dps.admin.R
 import org.dps.admin.model.ClassData
 import org.dps.admin.model.StudentData
+import org.dps.admin.model.TeacherMode
 import org.dps.admin.mvvm.AssignClassTeacherViewModel
 import org.dps.admin.network.Const
 import org.dps.admin.utils.toast
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class ShowClassWiseStudentsActivity : AppCompatActivity() {
+class SearchClassWiseStudentsActivity : AppCompatActivity() {
 
     private val viewModel: AssignClassTeacherViewModel by viewModel()
     private val mAdapter by lazy { ShowStudentsAdapter() }
@@ -32,12 +33,12 @@ class ShowClassWiseStudentsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_show_class_wise_students)
+        setContentView(R.layout.activity_search_class_wise_students)
 
 
         btn_back.setOnClickListener { onBackPressed() }
 
-        tv_toolbar.text="List of Classes & Students"
+        tv_toolbar.text="Search class wise students"
 
         setupViewModel()
     }
@@ -57,10 +58,39 @@ class ShowClassWiseStudentsActivity : AppCompatActivity() {
             mAdapter.notifyDataSetChanged()
         })
 
+        viewModel.teacherAssign.observe(this, Observer {
+            hideShowProgress(false)
+            if(it?.teacher != null){
+                teacher_view.visibility=View.VISIBLE
+                parseTeacher(it.teacher)
+            }else{
+                teacher_view.visibility=View.GONE
+            }
+        })
         viewModel.msg.observe(this, Observer {
             hideShowProgress(false)
             toast(it)
         })
+    }
+
+    private fun parseTeacher(data: TeacherMode?) {
+        teacher_view.visibility=View.VISIBLE
+        data?.run {
+            Picasso.get()
+                .load("${Const.BASE_URL}/${teacherAvatar}")
+                .into(ivProfileUser, object : Callback {
+                    override fun onSuccess() {
+
+                    }
+                    override fun onError(e: Exception?) {
+                        ivProfileUser.setImageResource(R.drawable.profile_pic)
+                    }
+                })
+            tvUserContactName.text= "$fname $lname"
+            tv_mob.text=mobile
+            tv_parent.text=parentName
+        }
+
     }
 
     private fun setSpClass(list: List<ClassData>) {
@@ -71,9 +101,9 @@ class ShowClassWiseStudentsActivity : AppCompatActivity() {
         sp_classes.onItemClickListener =
             AdapterView.OnItemClickListener { parent, _, position, _ ->
                 val data: ClassData = parent.adapter.getItem(position) as ClassData
-               val classId = data.id
                 hideShowProgress(true)
-                viewModel.getAllStudentByClassId(classId)
+                viewModel.getAllStudentByClassId(data.id)
+                viewModel.getAssignTeacherByClassId(data.id)
             }
 
     }
@@ -108,14 +138,14 @@ class ShowStudentsAdapter(var list: List<StudentData> = listOf()) : RecyclerView
                         override fun onSuccess() {
 
                         }
-
                         override fun onError(e: Exception?) {
                             ivProfileUser.setImageResource(R.drawable.profile_pic)
                         }
                     })
 
                 tvUserContactName.text = model.fname +" "+model.lname
-                tvClass.text = model.classId
+                tv_roll_no.text = "Roll No: "+model.rollno
+                tv_parent.text = model.father_name
             }
         }
     }

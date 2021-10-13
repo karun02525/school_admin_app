@@ -19,12 +19,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import com.bumptech.glide.Glide
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
-import kotlinx.android.synthetic.main.activity_upload_documents.*
+import kotlinx.android.synthetic.main.activity_student_upload_documents.*
 import kotlinx.android.synthetic.main.custom_toolbar.*
 import kotlinx.android.synthetic.main.dialog_delete_photos.view.*
 import net.gotev.uploadservice.MultipartUploadRequest
@@ -44,7 +43,7 @@ import org.json.JSONObject
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 
-class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiver.Delegate {
+class StudentsUploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiver.Delegate {
 
     private val viewModel: AssignClassTeacherViewModel by viewModel()
 
@@ -69,7 +68,7 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
     private var documentName = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_upload_documents)
+        setContentView(R.layout.activity_student_upload_documents)
         id = intent.getStringExtra("id") ?: ""
 
 
@@ -360,7 +359,7 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
                     applicationContext,
                     Manifest.permission.READ_EXTERNAL_STORAGE
                 ) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
-                    this@UploadDocumentsActivity,
+                    this@StudentsUploadDocumentsActivity,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
@@ -499,19 +498,19 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
                     applicationContext,
                     Manifest.permission.READ_EXTERNAL_STORAGE
                 ) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
-                    this@UploadDocumentsActivity,
+                    this@StudentsUploadDocumentsActivity,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
 
                 // Should we show an explanation?
                 if (ActivityCompat.shouldShowRequestPermissionRationale(
-                        this@UploadDocumentsActivity,
+                        this@StudentsUploadDocumentsActivity,
                         Manifest.permission.READ_EXTERNAL_STORAGE
                     )
                 ) {
                     ActivityCompat.requestPermissions(
-                        this@UploadDocumentsActivity, arrayOf(
+                        this@StudentsUploadDocumentsActivity, arrayOf(
                             Manifest.permission.READ_EXTERNAL_STORAGE,
                             Manifest.permission.WRITE_EXTERNAL_STORAGE
                         ),
@@ -519,7 +518,7 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
                     )
                 } else {
                     ActivityCompat.requestPermissions(
-                        this@UploadDocumentsActivity,
+                        this@StudentsUploadDocumentsActivity,
                         arrayOf(
                             Manifest.permission.READ_EXTERNAL_STORAGE,
                             Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -570,7 +569,7 @@ class UploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcastReceiv
     }
 
     private fun showpopupPermission() {
-        val alertbox = AlertDialog.Builder(this@UploadDocumentsActivity)
+        val alertbox = AlertDialog.Builder(this@StudentsUploadDocumentsActivity)
         alertbox.setMessage("Here storage permission is required to take photo from your Gallery.")
         alertbox.setCancelable(false)
         alertbox.setPositiveButton("OK") { dialog, which ->

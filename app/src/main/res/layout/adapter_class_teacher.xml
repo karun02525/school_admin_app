@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginTop="@dimen/_5sdp"
     android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_marginStart="@dimen/_5sdp"
+        android:id="@+id/ivProfileUser"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        tools:visibility="visivble"
+        android:visibility="gone"
+        android:src="@drawable/profile_pic"
+        app:civ_border_color="#03A9F4"
+        app:civ_border_width="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -17,7 +31,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="@dimen/_12ssp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivProfileUser"
         app:layout_constraintTop_toTopOf="parent"
         />
 
@@ -72,7 +86,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="@dimen/_12ssp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivProfileUser"
         app:layout_constraintTop_toBottomOf="@+id/lableClass"
         />
 
@@ -99,7 +113,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="@dimen/_12ssp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivProfileUser"
         app:layout_constraintTop_toBottomOf="@+id/tvTeachername"
         />
 
@@ -127,7 +141,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="@dimen/_12ssp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivProfileUser"
         app:layout_constraintTop_toBottomOf="@+id/lableMob"
         />
 

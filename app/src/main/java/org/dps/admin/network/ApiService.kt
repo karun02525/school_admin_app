@@ -40,6 +40,9 @@ interface ApiService {
     @GET("/api/admin/search-students")
     fun getAllStudentByClassIdAsync(@Query("class_id") class_id: String): Deferred<Response<StudentModel>>
 
+    @GET("/api/admin/find-assign-teacher")
+    fun getAssignTeacherByClassIdAsync(@Query("class_id") class_id: String): Deferred<Response<AssignTeacherModel>>
+
     @GET("/api/class")
     fun getClassAsync(): Deferred<Response<ClassModel>>
 

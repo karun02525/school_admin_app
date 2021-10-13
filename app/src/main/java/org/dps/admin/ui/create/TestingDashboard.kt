@@ -35,20 +35,14 @@ class TestingDashboard : AppCompatActivity() {
 
 
         btnStudent.setOnClickListener {
-           startActivity(Intent(baseContext,UploadDocumentsActivity::class.java)
+           startActivity(Intent(baseContext,StudentsUploadDocumentsActivity::class.java)
                .putExtra("id","6165fbee8314577e9ddf75bd")
            )
         }
-        btnParent.setOnClickListener {
-            startActivity(Intent(baseContext,UploadDocumentsActivity::class.java)
-                .putExtra("source","Parent")
-                .putExtra("id","615c159a030b59a05b084636")
-            )
-        }
+
         btnTeacher.setOnClickListener {
-            startActivity(Intent(baseContext,UploadDocumentsActivity::class.java)
-                .putExtra("source","Teacher")
-                .putExtra("id","6154575492e6d7f6500227f8")
+            startActivity(Intent(baseContext,TeacherUploadDocumentsActivity::class.java)
+                .putExtra("id","616716b42ba31655d71e2e93")
             )
         }
     }

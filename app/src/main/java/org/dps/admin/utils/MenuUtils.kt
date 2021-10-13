@@ -5,7 +5,7 @@ import org.dps.admin.ui.assign.AssignClassTeacherActivity
 import org.dps.admin.ui.assign.AssignRollNoActivity
 import org.dps.admin.ui.create.*
 import org.dps.admin.ui.delete.DeleteClassActivity
-import org.dps.admin.ui.show.ShowClassWiseStudentsActivity
+import org.dps.admin.ui.show.SearchClassWiseStudentsActivity
 
 object MenuUtils {
 
@@ -15,14 +15,6 @@ object MenuUtils {
             val classs = ArrayList<String>()
             classs.add("Create a class")
             classs.add("Delete a class")
-            classs.add("Show class wise students")
-
-            val parent = ArrayList<String>()
-            parent.add("Create a parent")
-            parent.add("Update a parent")
-            parent.add("Delete a parent")
-            parent.add("Search a parent")
-            parent.add("Search all parent")
 
             val student = ArrayList<String>()
             student.add("Create a student")
@@ -30,6 +22,7 @@ object MenuUtils {
             student.add("Delete a student")
             student.add("Search a student")
             student.add("Search all student")
+            student.add("Search class wise students")
 
             val teacher = ArrayList<String>()
             teacher.add("Create a teacher")
@@ -48,7 +41,6 @@ object MenuUtils {
 
 
             listData["Class"] = classs
-            listData["Parent"] = parent
             listData["Student"] = student
             listData["Teacher"] = teacher
             listData["Assign Roll No"] = assignRollNo
@@ -65,25 +57,7 @@ object MenuUtils {
             "Delete a class" -> {
                 startNewActivity(DeleteClassActivity::class.java)
             }
-            "Show class wise students" -> {
-                startNewActivity(ShowClassWiseStudentsActivity::class.java)
-            }
             "Search all class" -> {
-                startNewActivity(CreateClassActivity::class.java)
-            }
-            "Create a parent" -> {
-                startNewActivity(CreateParentActivity::class.java)
-            }
-            "Update a parent" -> {
-                startNewActivity(CreateClassActivity::class.java)
-            }
-            "Delete a parent" -> {
-                startNewActivity(CreateClassActivity::class.java)
-            }
-            "Search a parent" -> {
-                startNewActivity(CreateClassActivity::class.java)
-            }
-            "Search all parent" -> {
                 startNewActivity(CreateClassActivity::class.java)
             }
             "Create a student" -> {
@@ -100,6 +74,9 @@ object MenuUtils {
             }
             "Search all student" -> {
                 startNewActivity(CreateClassActivity::class.java)
+            }
+            "Search class wise students" -> {
+                startNewActivity(SearchClassWiseStudentsActivity::class.java)
             }
             "Create a teacher" -> {
                 startNewActivity(CreateTeacherActivity::class.java)

@@ -18,7 +18,7 @@
         android:theme="@style/Theme.DPSAdminApp.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.show.ShowClassWiseStudentsActivity"
+            android:name=".ui.show.SearchClassWiseStudentsActivity"
             android:exported="true" />
         <activity
             android:name=".ui.delete.DeleteClassActivity"
@@ -28,8 +28,13 @@
             android:name=".ui.create.TestingDashboard"
             android:exported="true" />
         <activity
-            android:name=".ui.create.UploadDocumentsActivity"
+            android:name=".ui.create.StudentsUploadDocumentsActivity"
             android:exported="true" />
+
+        <activity
+            android:name=".ui.create.TeacherUploadDocumentsActivity"
+            android:exported="true" />
+
         <activity
             android:name=".ui.assign.AssignClassTeacherActivity"
             android:exported="true" />

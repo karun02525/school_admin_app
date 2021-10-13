@@ -22,7 +22,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         Handler().postDelayed({
-            startNewActivityFinish(TestingDashboard::class.java)
+            startNewActivityFinish(MainActivity::class.java)
         }, 100)
 
 

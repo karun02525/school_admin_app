@@ -24,7 +24,7 @@ data class DataModel(
 )
 
 data class Teacher(
-    @SerializedName("avatar")
+    @SerializedName("teacher_avatar")
     var avatar: String? = "",
     @SerializedName("fname")
     var fname: String? = "",

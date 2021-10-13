@@ -29,6 +29,7 @@ class AssignClassTeacherViewModel(private val restClient: RestClient) : ViewMode
      val studentsList = MutableLiveData<List<StudentData>>()
 
      val teacherAssignList = MutableLiveData<List<DataModel>>()
+     val teacherAssign = MutableLiveData<AssignTeacherModelData>()
 
     init {
       //  getClasses()
@@ -189,6 +190,23 @@ class AssignClassTeacherViewModel(private val restClient: RestClient) : ViewMode
         }
     }
 
+    // Get Assign Teacher by class id
+    fun getAssignTeacherByClassId(class_id: String) {
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                restClient.webServices().getAssignTeacherByClassIdAsync(class_id).await().let {
+                    if (it.isSuccessful)
+                        teacherAssign.value= it.body()!!.data
+                    else
+                        msg.value = ApiStatus.isCheckAPIStatus(it.code(), it.errorBody())
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                msg.value = App.appContext?.getString(R.string.no_internet_available)
+            }
+        }
+    }
+
     // Get All Student by class id
     fun getAllStudentByClassId(class_id: String) {
         GlobalScope.launch(Dispatchers.Main) {
@@ -205,6 +223,7 @@ class AssignClassTeacherViewModel(private val restClient: RestClient) : ViewMode
             }
         }
     }
+
 
     // Get All Classes
     fun getClasses() {
@@ -223,7 +242,6 @@ class AssignClassTeacherViewModel(private val restClient: RestClient) : ViewMode
         }
     }
 
-
     //Get Student by id
     val singleStudentData = MutableLiveData<SingleStudentModelData>()
     fun getStudentById(id:String) {
@@ -241,25 +259,6 @@ class AssignClassTeacherViewModel(private val restClient: RestClient) : ViewMode
             }
         }
     }
-
-    //Get Parent by id
-    val singleParentData = MutableLiveData<SingleParentModelData>()
-    fun getParentById(id:String) {
-        GlobalScope.launch(Dispatchers.Main) {
-            try {
-                restClient.webServices().getParentByIdAsync(id).await().let {
-                    if (it.isSuccessful)
-                        singleParentData.value=it.body()!!.data
-                    else
-                        msg.value = ApiStatus.isCheckAPIStatus(it.code(), it.errorBody())
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                msg.value = App.appContext?.getString(R.string.no_internet_available)
-            }
-        }
-    }
-
     //Get Teacher by id
     val singleTeacherData = MutableLiveData<SingleTeacherModelData>()
     fun getTeacherById(id:String) {

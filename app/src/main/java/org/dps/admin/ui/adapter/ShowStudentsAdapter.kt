@@ -25,7 +25,7 @@ class ShowStudentsAdapter(var list: List<StudentData> = listOf()) : RecyclerView
             itemView.run {
                // Glide.with(context).load(model.avatar).into(ivProfileUser)
                 tvUserContactName.text = model.fname + " " + model.lname
-                tvClass.text = model.rollno
+                tv_roll_no.text = model.rollno
             }
         }
     }

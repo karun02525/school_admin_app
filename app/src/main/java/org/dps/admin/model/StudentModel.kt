@@ -22,12 +22,14 @@ data class StudentData(
     var lname: String?,
     @SerializedName("rollno")
     var rollno: String?,
-    @SerializedName("avatar")
+    @SerializedName("student_avatar")
     var avatar: String?,
     @SerializedName("gender")
     var gender: String?,
     @SerializedName("qualification")
     var qualification: String?,
+    @SerializedName("father_name")
+    var father_name: String?,
     @SerializedName("dob")
     var dob: String?,
 

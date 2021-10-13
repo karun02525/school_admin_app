@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_upload_documents)
+        setContentView(R.layout.activity_student_upload_documents)
 
         findViewById<View>(R.id.iv_user_pic1).setOnClickListener {
             pickFile()

@@ -266,7 +266,7 @@ class CreateStudentActivity : AppCompatActivity() {
         viewModel.id.observe(this, Observer {
             if(it!=""){
                 startActivity(
-                    Intent(baseContext,UploadDocumentsActivity::class.java)
+                    Intent(baseContext,StudentsUploadDocumentsActivity::class.java)
                         .putExtra("id",it)
                 )
             }

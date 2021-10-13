@@ -18,6 +18,6 @@ data class ClassData(
     var name: String = ""
 ){
     override fun toString(): String {
-        return name.toString()
+        return name
     }
 }

@@ -24,8 +24,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:padding="1dp"
         android:layout_marginEnd="5dp"
         android:singleLine="true"
         tools:text="Karun Kumar"
@@ -33,39 +31,37 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/ivProfileUser"
-        app:layout_constraintEnd_toStartOf="@+id/btnApply"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvClass"
+        android:id="@+id/tv_roll_no"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:letterSpacing="0.09"
-        android:padding="2dp"
-        tools:text="1st"
+        tools:text="Roll No : 5"
         android:textColor="#121212"
         android:textSize="12sp"
         app:layout_constraintLeft_toRightOf="@+id/ivProfileUser"
         app:layout_constraintTop_toBottomOf="@+id/tvUserContactName" />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_marginEnd="@dimen/_10sdp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvUserContactName"
-        android:id="@+id/btnApply"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/tv_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_drop_down"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
+        android:layout_marginStart="10dp"
+        tools:text="Karun Kumar"
+        android:textColor="#121212"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toRightOf="@+id/ivProfileUser"
+        app:layout_constraintTop_toBottomOf="@+id/tv_roll_no" />
 
-     <View
+
+    <View
+        android:layout_marginStart="@dimen/_5sdp"
+         app:layout_constraintStart_toEndOf="@+id/ivProfileUser"
          android:layout_marginTop="@dimen/_5sdp"
          app:layout_constraintTop_toBottomOf="@+id/ivProfileUser"
          app:layout_constraintEnd_toEndOf="parent"
-         app:layout_constraintStart_toStartOf="parent"
          android:layout_width="0dp"
          android:layout_height="0.5dp"
          android:background="#C6C6C6"

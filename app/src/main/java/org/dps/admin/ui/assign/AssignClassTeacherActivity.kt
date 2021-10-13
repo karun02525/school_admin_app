@@ -13,7 +13,11 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_assign_class_teacher.*
+import kotlinx.android.synthetic.main.activity_assign_class_teacher.pb
+import kotlinx.android.synthetic.main.activity_search_class_wise_students.*
 import kotlinx.android.synthetic.main.adapter_class_teacher.view.*
 import kotlinx.android.synthetic.main.bottomsheet_profile_boost.view.*
 import kotlinx.android.synthetic.main.custom_toolbar.*
@@ -22,6 +26,7 @@ import org.dps.admin.R
 import org.dps.admin.model.DataModel
 import org.dps.admin.model.TeacherData
 import org.dps.admin.mvvm.AssignClassTeacherViewModel
+import org.dps.admin.network.Const
 import org.dps.admin.utils.toast
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.text.ParseException
@@ -167,7 +172,20 @@ class ShowClassesAdapter(var list: List<DataModel> = listOf()) : RecyclerView.Ad
                     tvTeachername.visibility=View.GONE
                     lableMob.visibility=View.GONE
                     tv_mob.visibility=View.GONE
+                    ivProfileUser.visibility=View.GONE
+
                 }else {
+                    ivProfileUser.visibility=View.VISIBLE
+                    Picasso.get()
+                        .load("${Const.BASE_URL}/${model.teacher?.avatar}")
+                        .into(ivProfileUser, object : Callback {
+                            override fun onSuccess() {}
+                            override fun onError(e: Exception?) {
+                                ivProfileUser.visibility=View.VISIBLE
+                                ivProfileUser.setImageResource(R.drawable.profile_pic)
+                            }
+                        })
+
                     btnApply.visibility=View.GONE
                     btnDelete.visibility=View.VISIBLE
                     lableteacher.visibility=View.VISIBLE

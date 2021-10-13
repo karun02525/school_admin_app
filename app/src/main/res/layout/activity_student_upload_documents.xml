@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.create.StudentsUploadDocumentsActivity">
+
+    <include layout="@layout/custom_toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?actionBarSize"
+        android:scrollbars="none">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/_50sdp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_title1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="center"
+                android:text="1. Upload student &amp; parent profile photo."
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <!--Tile Name Fulll-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:id="@+id/labeled"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:gravity="center"
+                    android:text="Name                  :   "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_11ssp"
+                    android:textStyle="bold"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvName"
+                    app:layout_constraintBottom_toBottomOf="@+id/labeled"
+                    app:layout_constraintTop_toTopOf="@+id/labeled"
+                    app:layout_constraintStart_toEndOf="@+id/labeled"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="karun kumar"
+                    android:textColor="@color/adapter_text_sub_titile"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:id="@+id/flab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/labeled"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:gravity="center"
+                    android:text="Father's name   :  "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_11ssp"
+                    android:textStyle="bold"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_father_name"
+                    app:layout_constraintBottom_toBottomOf="@+id/flab"
+                    app:layout_constraintTop_toTopOf="@+id/flab"
+                    app:layout_constraintStart_toEndOf="@+id/flab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Mr. Din Daya Singh"
+                    android:textColor="@color/adapter_text_sub_titile"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:id="@+id/parentlab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/flab"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:gravity="center"
+                    android:text="Mother's name  :  "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_11ssp"
+                    android:textStyle="bold"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_mother_name"
+                    app:layout_constraintBottom_toBottomOf="@+id/parentlab"
+                    app:layout_constraintTop_toTopOf="@+id/parentlab"
+                    app:layout_constraintStart_toEndOf="@+id/parentlab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Miss. Prem lata singh"
+                    android:textColor="@color/adapter_text_sub_titile"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:id="@+id/labeledm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/parentlab"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:gravity="center"
+                    android:text="Mobile                 :  "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_11ssp"
+                    android:textStyle="bold"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvMobile"
+                    app:layout_constraintBottom_toBottomOf="@+id/labeledm"
+                    app:layout_constraintTop_toTopOf="@+id/labeledm"
+                    app:layout_constraintStart_toEndOf="@+id/labeledm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="9089879893"
+                    android:textColor="@color/adapter_text_sub_titile"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:id="@+id/labeleds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/labeledm"
+                    android:gravity="center"
+                    android:text="Status                  :  "
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_11ssp"
+                    android:textStyle="bold"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvStatus"
+                    app:layout_constraintBottom_toBottomOf="@+id/labeleds"
+                    app:layout_constraintTop_toTopOf="@+id/labeleds"
+                    app:layout_constraintStart_toEndOf="@+id/labeleds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Pending"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/upload_pic1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="0dp"
+                    app:layout_constraintEnd_toStartOf="@+id/upload_pic2"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_10sdp">
+
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_user_pic1"
+                        android:layout_width="@dimen/_90sdp"
+                        android:layout_height="@dimen/_90sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:src="@drawable/profile_pic"
+                        app:civ_border_color="@color/doc_color"
+                        app:civ_border_width="1dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <ImageView
+                        android:id="@+id/editPic1"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_marginStart="87dp"
+                        android:src="@drawable/ic_upload_picture"
+                        app:layout_constraintBottom_toBottomOf="@+id/iv_user_pic1"
+                        app:layout_constraintStart_toStartOf="@+id/iv_user_pic1"
+                        app:layout_constraintTop_toTopOf="@+id/iv_user_pic1"
+                        app:layout_constraintVertical_bias="0.792" />
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/lableStu"
+                        android:layout_width="0dp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Upload Student Picture"
+                        android:textSize="@dimen/_10ssp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="@+id/iv_user_pic1"
+                        app:layout_constraintStart_toStartOf="@+id/iv_user_pic1"
+                        app:layout_constraintTop_toBottomOf="@+id/iv_user_pic1" />
+
+
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/btnDeleteProfile1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_delete"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="@+id/lableStu"
+                        app:layout_constraintStart_toStartOf="@+id/lableStu"
+                        app:layout_constraintTop_toBottomOf="@+id/lableStu"
+                        android:paddingBottom="@dimen/_5sdp"
+                        />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/upload_pic2"
+                    app:layout_constraintStart_toEndOf="@+id/upload_pic1"
+                   app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_10sdp">
+
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_user_pic2"
+                        android:layout_width="@dimen/_90sdp"
+                        android:layout_height="@dimen/_90sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:src="@drawable/profile_pic"
+                        app:civ_border_color="@color/doc_color"
+                        app:civ_border_width="1dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <ImageView
+                        android:id="@+id/editPic2"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_marginStart="87dp"
+                        android:src="@drawable/ic_upload_picture"
+                        app:layout_constraintBottom_toBottomOf="@+id/iv_user_pic2"
+                        app:layout_constraintStart_toStartOf="@+id/iv_user_pic2"
+                        app:layout_constraintTop_toTopOf="@+id/iv_user_pic2"
+                        app:layout_constraintVertical_bias="0.792" />
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/lableStu2"
+                        android:layout_width="0dp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Upload Parents Picture"
+                        android:textSize="@dimen/_10ssp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="@+id/iv_user_pic2"
+                        app:layout_constraintStart_toStartOf="@+id/iv_user_pic2"
+                        app:layout_constraintTop_toBottomOf="@+id/iv_user_pic2" />
+
+
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/btnDeleteProfile2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_delete"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="@+id/lableStu2"
+                        app:layout_constraintStart_toStartOf="@+id/lableStu2"
+                        app:layout_constraintTop_toBottomOf="@+id/lableStu2"
+                        android:paddingBottom="@dimen/_5sdp"
+                        />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="wrap_content"
+                android:layout_height="0.6dp"
+                android:background="#ECECEC"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/pb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+
+
+            <!--Student documents Uploads-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_title2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="2. Upload student document front photo."
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivFront1"
+                    android:layout_width="@dimen/_205sdp"
+                    android:layout_height="@dimen/_120sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@drawable/dashed_line_rect"
+                    android:padding="@dimen/_1sdp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title2"
+                    app:srcCompat="@drawable/ic_placeholder_front" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvFrontSide1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Capture the front side"
+                    android:textColor="@color/doc_color"
+                    android:textSize="@dimen/_10ssp"
+                    app:drawableTopCompat="@drawable/ic_photo_camera"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivFront1"
+                    app:layout_constraintEnd_toEndOf="@+id/ivFront1"
+                    app:layout_constraintStart_toStartOf="@+id/ivFront1"
+                    app:layout_constraintTop_toTopOf="@+id/ivFront1" />
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/btnDeleteFront1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_delete" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0.6dp"
+                android:background="#ECECEC"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_title3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="3. Upload student document back photo."
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivBack1"
+                    android:layout_width="@dimen/_210sdp"
+                    android:layout_height="@dimen/_120sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@drawable/dashed_line_rect"
+                    android:padding="@dimen/_1sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title3"
+                    app:srcCompat="@drawable/ic_placeholder_back" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvBackSide1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Capture the back side"
+                    android:textColor="@color/doc_color"
+                    android:textSize="@dimen/_10ssp"
+                    app:drawableTopCompat="@drawable/ic_photo_camera"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivBack1"
+                    app:layout_constraintEnd_toEndOf="@+id/ivBack1"
+                    app:layout_constraintStart_toStartOf="@+id/ivBack1"
+                    app:layout_constraintTop_toTopOf="@+id/ivBack1" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/btnDeleteBack1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_delete" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--Parent documents Uploads-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_title4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="4. Upload parent document front photo."
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivFront2"
+                    android:layout_width="@dimen/_205sdp"
+                    android:layout_height="@dimen/_120sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@drawable/dashed_line_rect"
+                    android:padding="@dimen/_1sdp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title4"
+                    app:srcCompat="@drawable/ic_placeholder_front" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvFrontSide2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Capture the front side"
+                    android:textColor="@color/doc_color"
+                    android:textSize="@dimen/_10ssp"
+                    app:drawableTopCompat="@drawable/ic_photo_camera"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivFront2"
+                    app:layout_constraintEnd_toEndOf="@+id/ivFront2"
+                    app:layout_constraintStart_toStartOf="@+id/ivFront2"
+                    app:layout_constraintTop_toTopOf="@+id/ivFront2" />
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/btnDeleteFront2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_delete" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0.6dp"
+                android:background="#ECECEC"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_title5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="5. Upload parent document back photo."
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivBack2"
+                    android:layout_width="@dimen/_210sdp"
+                    android:layout_height="@dimen/_120sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@drawable/dashed_line_rect"
+                    android:padding="@dimen/_1sdp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title5"
+                    app:srcCompat="@drawable/ic_placeholder_back" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvBackSide2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Capture the back side"
+                    android:textColor="@color/doc_color"
+                    android:textSize="@dimen/_10ssp"
+                    app:drawableTopCompat="@drawable/ic_photo_camera"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivBack2"
+                    app:layout_constraintEnd_toEndOf="@+id/ivBack2"
+                    app:layout_constraintStart_toStartOf="@+id/ivBack2"
+                    app:layout_constraintTop_toTopOf="@+id/ivBack2" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/btnDeleteBack2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_delete" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
