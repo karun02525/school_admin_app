@@ -1,4 +1,4 @@
-package org.dps.admin.ui.show
+package org.dps.admin.ui.search
 
 import android.annotation.SuppressLint
 import android.os.Bundle

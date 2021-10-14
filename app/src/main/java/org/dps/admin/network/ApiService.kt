@@ -50,10 +50,13 @@ interface ApiService {
     fun getParentsAsync(): Deferred<Response<ParentListModel>>
 
     @GET("/api/student")
-    fun getStudentsAsync(): Deferred<Response<ParentListModel>>
+    fun getStudentsAsync(): Deferred<Response<StudentModel>>
 
     @GET("/api/teacher")
     fun getTeacherAsync(): Deferred<Response<TeacherModel>>
+
+    @GET("/api/teacher/{id}")
+    fun getTeacherOneAsync(@Path("id")id:String): Deferred<Response<TeacherSingleModel>>
 
     @GET("/api/admin/assign-teacher")
     fun getAssignClassTeacherAsync(): Deferred<Response<AssignClassTeacherModel>>

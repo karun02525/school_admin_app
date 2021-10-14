@@ -18,7 +18,7 @@
         android:theme="@style/Theme.DPSAdminApp.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.show.SearchClassWiseStudentsActivity"
+            android:name=".ui.search.SearchClassWiseStudentsActivity"
             android:exported="true" />
         <activity
             android:name=".ui.delete.DeleteClassActivity"
@@ -62,8 +62,17 @@
         <activity
             android:name=".ui.create.CreateTeacherActivity"
             android:label="Create Teacher" />
+
         <activity android:name=".ui.create.ShowStudentActivity" />
-        <activity android:name=".ui.create.ShowTeacherActivity" />
+
+        <activity android:name=".ui.search.ShowTeacherActivity" />
+
+        <activity android:name=".ui.search.SearchStudentActivity" />
+
+        <activity android:name=".ui.search.SearchTeacherByIdActivity" />
+
+        <activity android:name=".ui.search.SearchStudentByIdActivity" />
+
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />

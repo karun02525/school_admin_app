@@ -39,7 +39,7 @@ class AssignRollNoActivity : AppCompatActivity() {
 
         btn_back.setOnClickListener { onBackPressed() }
 
-        tv_toolbar.text="Assign Roll No"
+        tv_toolbar.text="Assign Students Roll No"
         
         btnSubmit.setOnClickListener {
             val rollno = edit_rollno.text.toString()
@@ -104,22 +104,11 @@ class AssignRollNoActivity : AppCompatActivity() {
          sp_classes.onItemClickListener =
              AdapterView.OnItemClickListener { parent, _, position, _ ->
                  val data: ClassData = parent.adapter.getItem(position) as ClassData
-                 class_id = data.id.toString()
-                 className = data.name.toString()
+                 class_id = data.id
+                 className = data.name
                  viewModel.getAllStudentByClassId(class_id)
-                // setSpSection(data.section)
              }
-
      }
-
-   /* private fun setSpSection(section: List<String>) {
-        val adapter: ArrayAdapter<String> = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, section)
-        sp_section.setAdapter(adapter)
-        sp_section.onItemClickListener =
-            AdapterView.OnItemClickListener { parent, arg1, position, id ->
-                sectionName = section[position]
-            }
-    }*/
 
     private fun hideShowProgress(flag: Boolean) {
         if (flag) progress_circular.visibility = View.VISIBLE else progress_circular.visibility =

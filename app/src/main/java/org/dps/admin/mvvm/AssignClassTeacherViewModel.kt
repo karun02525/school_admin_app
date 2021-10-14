@@ -26,6 +26,7 @@ class AssignClassTeacherViewModel(private val restClient: RestClient) : ViewMode
 
 
      val teacherList = MutableLiveData<List<TeacherData>>()
+     val teacherData = MutableLiveData<TeacherData>()
      val studentsList = MutableLiveData<List<StudentData>>()
 
      val teacherAssignList = MutableLiveData<List<DataModel>>()
@@ -73,21 +74,6 @@ class AssignClassTeacherViewModel(private val restClient: RestClient) : ViewMode
         }
     }
 
-    fun getTeacher() {
-        GlobalScope.launch(Dispatchers.Main) {
-            try {
-                restClient.webServices().getTeacherAsync().await().let {
-                    if (it.isSuccessful)
-                        teacherList.value=it.body()!!.data!!
-                    else
-                        msg.value = ApiStatus.isCheckAPIStatus(it.code(), it.errorBody())
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                msg.value = App.appContext?.getString(R.string.no_internet_available)
-            }
-        }
-    }
 
     fun assignClassTeacherAsync(class_id: String,teacher_id: String) {
         val params: HashMap<String, String> = HashMap()
@@ -171,10 +157,6 @@ class AssignClassTeacherViewModel(private val restClient: RestClient) : ViewMode
 
     // Assign Roll no for Students
     fun assignRollNo(class_id:String,student_id:String,roll_no:String) {
-        val params: HashMap<String, Any> = HashMap()
-        params["class_id"] = class_id
-        params["student_id"] = student_id
-        params["roll_no"] = roll_no
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 restClient.webServices().assignRollNoAsync(class_id,student_id,roll_no).await().let {
@@ -207,6 +189,57 @@ class AssignClassTeacherViewModel(private val restClient: RestClient) : ViewMode
         }
     }
 
+
+    //Get One Teacher by id
+    fun getTeacherOne(id:String) {
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                restClient.webServices().getTeacherOneAsync(id).await().let {
+                    if (it.isSuccessful)
+                        teacherData.value=it.body()!!.data!!
+                    else
+                        msg.value = ApiStatus.isCheckAPIStatus(it.code(), it.errorBody())
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                msg.value = App.appContext?.getString(R.string.no_internet_available)
+            }
+        }
+    }
+    //Get All Teacher
+    fun getTeacher() {
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                restClient.webServices().getTeacherAsync().await().let {
+                    if (it.isSuccessful)
+                        teacherList.value=it.body()!!.data!!
+                    else
+                        msg.value = ApiStatus.isCheckAPIStatus(it.code(), it.errorBody())
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                msg.value = App.appContext?.getString(R.string.no_internet_available)
+            }
+        }
+    }
+
+    //Get All Students
+    fun getStudents() {
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                restClient.webServices().getStudentsAsync().await().let {
+                    if (it.isSuccessful)
+                        studentsList.value=it.body()!!.data!!
+                    else
+                        msg.value = ApiStatus.isCheckAPIStatus(it.code(), it.errorBody())
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                msg.value = App.appContext?.getString(R.string.no_internet_available)
+            }
+        }
+    }
+
     // Get All Student by class id
     fun getAllStudentByClassId(class_id: String) {
         GlobalScope.launch(Dispatchers.Main) {
@@ -223,6 +256,7 @@ class AssignClassTeacherViewModel(private val restClient: RestClient) : ViewMode
             }
         }
     }
+
 
 
     // Get All Classes

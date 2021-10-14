@@ -5,7 +5,7 @@ import org.dps.admin.ui.assign.AssignClassTeacherActivity
 import org.dps.admin.ui.assign.AssignRollNoActivity
 import org.dps.admin.ui.create.*
 import org.dps.admin.ui.delete.DeleteClassActivity
-import org.dps.admin.ui.show.SearchClassWiseStudentsActivity
+import org.dps.admin.ui.search.*
 
 object MenuUtils {
 
@@ -70,10 +70,10 @@ object MenuUtils {
                 startNewActivity(CreateClassActivity::class.java)
             }
             "Search a student" -> {
-                startNewActivity(CreateClassActivity::class.java)
+                startNewActivity(SearchStudentByIdActivity::class.java)
             }
             "Search all student" -> {
-                startNewActivity(CreateClassActivity::class.java)
+                startNewActivity(SearchStudentActivity::class.java)
             }
             "Search class wise students" -> {
                 startNewActivity(SearchClassWiseStudentsActivity::class.java)
@@ -88,10 +88,10 @@ object MenuUtils {
                 startNewActivity(CreateClassActivity::class.java)
             }
             "Search a teacher" -> {
-                startNewActivity(CreateClassActivity::class.java)
+                startNewActivity(SearchTeacherByIdActivity::class.java)
             }
             "Search all teacher" -> {
-                startNewActivity(CreateClassActivity::class.java)
+                startNewActivity(ShowTeacherActivity::class.java)
             }"Assign Roll No" -> {
                 startNewActivity(AssignRollNoActivity::class.java)
             }"Assign Class Teacher" -> {

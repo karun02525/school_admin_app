@@ -32,21 +32,6 @@ class ClassViewModel(private val restClient: RestClient) : ViewModel() {
 
 
 
-    private fun getTeacher() {
-        GlobalScope.launch(Dispatchers.Main) {
-            try {
-                restClient.webServices().getTeacherAsync().await().let {
-                    if (it.isSuccessful)
-                        teacherList.value=it.body()!!.data!!
-                    else
-                        msg.value = ApiStatus.isCheckAPIStatus(it.code(), it.errorBody())
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                msg.value = App.appContext?.getString(R.string.no_internet_available)
-            }
-        }
-    }
 
     fun assignTeacherAsync(class_id: String, className: String, section: String,teacher_id: String) {
         val params: HashMap<String, Any> = HashMap()

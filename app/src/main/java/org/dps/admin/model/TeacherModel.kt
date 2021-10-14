@@ -8,12 +8,14 @@ data class TeacherModel(
     @SerializedName("message")
     var message: String?,
     @SerializedName("status")
-    var status: String?
+    var status: Boolean?
 )
 
 data class TeacherData(
     @SerializedName("address")
     var address: String?,
+    @SerializedName("teacher_avatar")
+    var teacherAvatar: String?,
     @SerializedName("alternate_no")
     var alternateNo: String?,
     @SerializedName("country")
@@ -26,6 +28,10 @@ data class TeacherData(
     var dob: String?,
     @SerializedName("email")
     var email: String?,
+    @SerializedName("mobile")
+    var mobile: String?,
+    @SerializedName("parent_name")
+    var parentName: String?,
     @SerializedName("fname")
     var fname: String?,
     @SerializedName("_id")
