@@ -15,13 +15,13 @@ import kotlinx.android.synthetic.main.custom_toolbar.*
 import org.dps.admin.R
 import org.dps.admin.model.ClassData
 import org.dps.admin.mvvm.ClassViewModel
-import org.dps.admin.ui.adapter.ShowStudentsAdapter
+import org.dps.admin.ui.adapter.StudentsAdapter
 import org.dps.admin.utils.toast
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class ShowStudentActivity : AppCompatActivity() {
     private val viewModel: ClassViewModel by viewModel()
-    private val mAdapter by lazy { ShowStudentsAdapter() }
+    private val mAdapter by lazy { StudentsAdapter() }
 
     private var class_id = ""
     private var sectionName = ""

@@ -12,16 +12,14 @@ data class StudentModel(
 )
 
 data class StudentData(
-    @SerializedName("class_id")
-    var classId: String?,
     @SerializedName("fname")
-    var fname: String?,
+    var fname: String,
     @SerializedName("_id")
     var id: String?,
     @SerializedName("lname")
-    var lname: String?,
+    var lname: String,
     @SerializedName("rollno")
-    var rollno: String?,
+    var rollno: Int=0,
     @SerializedName("student_avatar")
     var avatar: String?,
     @SerializedName("gender")
@@ -32,9 +30,15 @@ data class StudentData(
     var father_name: String?,
     @SerializedName("dob")
     var dob: String?,
+    @SerializedName("classes")
+    var classes: Class?=null,
 
 ){
     override fun toString(): String {
-        return fname.toString()  +" "+  lname.toString()
+        var mess=""
+        if(rollno==0) {
+            mess = " $fname $lname "
+        }
+        return mess
     }
 }

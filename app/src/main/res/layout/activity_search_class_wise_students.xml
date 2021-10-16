@@ -46,7 +46,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/teacher_view"
         android:visibility="gone"
-        tools:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"

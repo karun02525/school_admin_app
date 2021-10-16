@@ -54,7 +54,11 @@
         <activity
             android:name=".ui.create.AssignTeacherActivity"
             android:label="Assign Teacher" />
+
         <activity android:name=".ui.assign.AssignRollNoActivity" />
+
+        <activity android:name=".ui.assign.AssignRollNoStatusActivity" />
+
         <activity android:name=".ui.create.CreateParentActivity" />
         <activity
             android:name=".ui.create.CreateStudentActivity"

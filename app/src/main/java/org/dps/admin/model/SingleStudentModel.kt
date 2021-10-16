@@ -12,8 +12,6 @@ data class SingleStudentModel(
 )
 
 data class SingleStudentModelData(
-    @SerializedName("class_id")
-    var classId: String,
     @SerializedName("createdAt")
     var createdAt: String,
     @SerializedName("distc")
@@ -71,7 +69,7 @@ data class SingleStudentModelData(
     @SerializedName("qualification")
     var qualification: String,
     @SerializedName("rollno")
-    var rollno: Int,
+    var rollno: Int=0,
     @SerializedName("state")
     var state: String,
     @SerializedName("student_doc_back")
@@ -80,4 +78,13 @@ data class SingleStudentModelData(
     var studentDocFront: String,
     @SerializedName("updatedAt")
     var updatedAt: String,
+    @SerializedName("classes")
+    var classes: Class,
+)
+
+data class Class(
+    @SerializedName("_id")
+    var id: String = "",
+    @SerializedName("name")
+    var name: String = ""
 )

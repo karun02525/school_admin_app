@@ -45,10 +45,68 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginStart="@dimen/_10sdp"
-                    android:id="@+id/labeled"
+                    android:id="@+id/classs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:gravity="center"
+                    android:text="Class                   :   "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_11ssp"
+                    android:textStyle="bold"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_class"
+                    app:layout_constraintBottom_toBottomOf="@+id/classs"
+                    app:layout_constraintTop_toTopOf="@+id/classs"
+                    app:layout_constraintStart_toEndOf="@+id/classs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="1St"
+                    android:textColor="@color/adapter_text_sub_titile"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold" />
+
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:id="@+id/roll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/classs"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:gravity="center"
+                    android:text="Roll No                :   "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_11ssp"
+                    android:textStyle="bold"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_roll"
+                    app:layout_constraintBottom_toBottomOf="@+id/roll"
+                    app:layout_constraintTop_toTopOf="@+id/roll"
+                    app:layout_constraintStart_toEndOf="@+id/roll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="2"
+                    android:textColor="@color/adapter_text_sub_titile"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold" />
+
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:id="@+id/labeled"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/roll"
                     app:layout_constraintStart_toStartOf="parent"
                     android:gravity="center"
                     android:text="Name                  :   "

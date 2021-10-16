@@ -1,11 +1,13 @@
 package org.dps.admin.ui.create
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -186,6 +188,7 @@ class StudentsUploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadca
         })
     }
 
+    @SuppressLint("SetTextI18n")
     private fun dataParse(it: SingleStudentModelData){
 
         it.run {
@@ -195,11 +198,19 @@ class StudentsUploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadca
             tv_title4.text = "4. Upload parent $parentDocument front photo."
             tv_title5.text = "5. Upload parent $parentDocument back photo."
 
+            tv_class.text = classes.name
+
+            if(rollno==0) {
+                tv_roll.text = "Pending"
+                tv_roll.setTextColor(Color.RED)
+            }else tv_roll.text = ""+rollno
+
             tvName.text = "$fname $lname"
             tvMobile.text = mobile
             tv_father_name.text = "$fatherTitle $fatherName"
             tv_mother_name.text = "$motherTitle $motherName"
-            tvStatus.text = "pending"
+
+            tvStatus.text = "Pending"
 
             //For User Avatar
             Picasso.get()

@@ -3,21 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/_5sdp"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal">
 
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_marginStart="@dimen/_10sdp"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ivProfileUser"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/profile_pic"
-        app:civ_border_color="#03A9F4"
-        app:civ_border_width="1dp"
+        android:layout_marginStart="@dimen/_3sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="0dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="wrap_content">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_user_pic"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:src="@drawable/profile_pic"
+            app:civ_border_color="@color/doc_color"
+            app:civ_border_width="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/editPic"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:layout_marginStart="49dp"
+            android:src="@drawable/ic_upload_picture"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_user_pic"
+            app:layout_constraintStart_toStartOf="@+id/iv_user_pic"
+            app:layout_constraintTop_toTopOf="@+id/iv_user_pic"
+            app:layout_constraintVertical_bias="0.792" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
     <TextView
         android:id="@+id/tvUserContactName"
@@ -26,6 +52,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="5dp"
         android:singleLine="true"
+        android:layout_marginTop="@dimen/_15sdp"
         tools:text="Karun Kumar"
         android:textColor="#676767"
         android:textSize="16sp"
@@ -34,22 +61,58 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tv_class"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="5dp"
+        android:singleLine="true"
+        android:text="1st"
+        android:textColor="#4CAF50"
+        android:textSize="@dimen/_10ssp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/ivProfileUser"
+        app:layout_constraintTop_toBottomOf="@+id/tvUserContactName" />
+
+    <TextView
         android:id="@+id/tv_roll_no"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         tools:text="Roll No : 5"
-        android:textColor="#121212"
+        android:textColor="#673AB7"
         android:textSize="12sp"
         app:layout_constraintLeft_toRightOf="@+id/ivProfileUser"
+        app:layout_constraintTop_toBottomOf="@+id/tv_class" />
+
+
+    <TextView
+        android:visibility="gone"
+        android:paddingBottom="@dimen/_3sdp"
+        android:paddingTop="@dimen/_3sdp"
+        android:paddingEnd="@dimen/_5sdp"
+        android:paddingStart="@dimen/_5sdp"
+        android:id="@+id/tv_view_roll"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Assign Roll No"
+        android:textColor="#FDFDFD"
+        android:textStyle="bold"
+        android:textSize="@dimen/_8ssp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:background="@drawable/bg_text"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvUserContactName" />
+
+
 
     <TextView
         android:id="@+id/tv_parent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        tools:text="Karun Kumar"
+        tools:text="Parent"
         android:textColor="#121212"
         android:textSize="12sp"
         app:layout_constraintLeft_toRightOf="@+id/ivProfileUser"
@@ -60,7 +123,7 @@
         android:layout_marginStart="@dimen/_5sdp"
          app:layout_constraintStart_toEndOf="@+id/ivProfileUser"
          android:layout_marginTop="@dimen/_5sdp"
-         app:layout_constraintTop_toBottomOf="@+id/ivProfileUser"
+         app:layout_constraintTop_toBottomOf="@+id/tv_parent"
          app:layout_constraintEnd_toEndOf="parent"
          android:layout_width="0dp"
          android:layout_height="0.5dp"

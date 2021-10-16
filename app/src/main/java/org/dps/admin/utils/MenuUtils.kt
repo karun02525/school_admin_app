@@ -3,6 +3,7 @@ package org.dps.admin.utils
 import android.content.Context
 import org.dps.admin.ui.assign.AssignClassTeacherActivity
 import org.dps.admin.ui.assign.AssignRollNoActivity
+import org.dps.admin.ui.assign.AssignRollNoStatusActivity
 import org.dps.admin.ui.create.*
 import org.dps.admin.ui.delete.DeleteClassActivity
 import org.dps.admin.ui.search.*
@@ -32,8 +33,8 @@ object MenuUtils {
             teacher.add("Search all teacher")
 
             val assignRollNo = ArrayList<String>()
+            assignRollNo.add("Roll No Status")
             assignRollNo.add("Assign Roll No")
-            assignRollNo.add("Pending assign roll no")
 
 
             val assignClassTeacher = ArrayList<String>()
@@ -49,7 +50,7 @@ object MenuUtils {
             return listData
         }
 
-    fun Context.navigate(name:String){
+    fun Context.navigate(name: String) {
         when (name) {
             "Create a class" -> {
                 startNewActivity(CreateClassActivity::class.java)
@@ -92,9 +93,14 @@ object MenuUtils {
             }
             "Search all teacher" -> {
                 startNewActivity(ShowTeacherActivity::class.java)
-            }"Assign Roll No" -> {
+            }
+            "Roll No Status" -> {
+                startNewActivity(AssignRollNoStatusActivity::class.java)
+            }
+            "Assign Roll No" -> {
                 startNewActivity(AssignRollNoActivity::class.java)
-            }"Assign Class Teacher" -> {
+            }
+            "Assign Class Teacher" -> {
                 startNewActivity(AssignClassTeacherActivity::class.java)
             }
 
