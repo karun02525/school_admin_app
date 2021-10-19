@@ -27,8 +27,8 @@ interface ApiService {
     @GET("/api/parent/{id}")
     fun getParentByIdAsync(@Path("id") id:String): Deferred<Response<SingleParentModel>>
 
-    @GET("/api/teacher/{id}")
-    fun getTeacherByIdAsync(@Path("id") id:String): Deferred<Response<SingleTeacherModel>>
+    @GET("/api/teacher")
+    fun getTeacherByIdAsync(@Query("teacher_id") id:String): Deferred<Response<SingleTeacherModel>>
 
     @DELETE("/api/admin/delete-upload-file")
     fun deleteUploadFileAsync(@Query("id") id:String,
@@ -55,8 +55,8 @@ interface ApiService {
     @GET("/api/teacher")
     fun getTeacherAsync(): Deferred<Response<TeacherModel>>
 
-    @GET("/api/teacher/{id}")
-    fun getTeacherOneAsync(@Path("id")id:String): Deferred<Response<TeacherSingleModel>>
+    @GET("/api/teacher")
+    fun getTeacherOneAsync(@Query("teacher_id")id:String): Deferred<Response<TeacherSingleModel>>
 
     @GET("/api/admin/assign-teacher")
     fun getAssignClassTeacherAsync(): Deferred<Response<AssignClassTeacherModel>>
