@@ -56,9 +56,7 @@ class CreateMenuAdapter(var list: List<CreateMenuModel> = listOf()) :
                     7 -> {
                         it.context.startNewActivity(CreateClassActivity::class.java)
                     }
-                    8 -> {
-                        it.context.startNewActivity(CreateParentActivity::class.java)
-                    }
+
                 }
             }
         }

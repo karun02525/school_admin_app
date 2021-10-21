@@ -72,7 +72,7 @@ class TeacherUploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcas
         UploadService.NAMESPACE = BuildConfig.APPLICATION_ID
         UploadService.NAMESPACE = "org.dps.admin"
 
-        urlStudent = "$BASE_URL/api/admin/upload-teacher-files"
+        urlStudent = "$BASE_URL/api-admin/upload-teacher-file"
         tv_toolbar.text = "Updates Profile & Documents"
         btn_back.setOnClickListener { onBackPressed() }
         setupViewModel()
@@ -160,7 +160,7 @@ class TeacherUploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcas
             dataParse(it)
         })
 
-        viewModel.deteteFilesuccess.observe(this, Observer {
+        viewModel.deleteFileSuccess.observe(this, Observer {
             if (it != "") {
                 hideShowProgress(false)
                 toast(it)
@@ -313,7 +313,7 @@ class TeacherUploadDocumentsActivity : AppCompatActivity(), SingleUploadBroadcas
         dialog.btnYes.setOnClickListener {
             mDialog.dismiss()
             hideShowProgress(true)
-            viewModel.deleteUploadFile(id, "teacher", fileKeySource)
+            viewModel.deleteTeacherUploadFile(id,fileKeySource)
         }
 
     }

@@ -59,7 +59,7 @@
 
         <activity android:name=".ui.assign.AssignRollNoStatusActivity" />
 
-        <activity android:name=".ui.create.CreateParentActivity" />
+
         <activity
             android:name=".ui.create.CreateStudentActivity"
             android:label="Create Student" />
